@@ -23,5 +23,7 @@ dist-ssr
 *.sln
 *.sw?
 
-. env
+.env
 .sqlite
+.nodemon.json
+package-lock.json

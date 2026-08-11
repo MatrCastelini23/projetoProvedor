@@ -1,9 +1,11 @@
 import * as bcrypt from "bcrypt";
+import "dotenv/config"
 import { IUserRepository } from "../repositories/userRepository";
 import AppError from "../utils/AppError";
 import { UserPublic, UsersEntity } from "../models/UserEntity";
+import jwt from "jsonwebtoken"
 
-
+const ACCESS_TOKEN_KEY = process.env.ACCESS_TOKEN_KEY;
 
 export class UserService {
     constructor(private readonly repo: IUserRepository) { };
@@ -16,11 +18,11 @@ export class UserService {
         }
 
         const passwordPass = await bcrypt.compare(data.password, user.password);
-        if (passwordPass == false) {
+        if (passwordPass === false) {
             throw new AppError(401, "Credendciais erradas");
         }
-
-        return user;
+        const token = jwt.sign({ email: user.email }, ACCESS_TOKEN_KEY as string, { expiresIn: "15m", })
+        return token;
     }
 
     async createUser(data: { name: string; email: string; password: string }): Promise<UserPublic> {
