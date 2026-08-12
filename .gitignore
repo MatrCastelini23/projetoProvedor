@@ -25,5 +25,9 @@ dist-ssr
 
 .env
 .sqlite
-.nodemon.json
+package-lock.json
+
+.sqlite
+eslint.config.js
+nginx.conf
 package-lock.json
