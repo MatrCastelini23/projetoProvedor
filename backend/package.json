@@ -5,8 +5,12 @@
   "main": "./src/serve.ts",
   "scripts": {
     "dev": "nodemon",
-    "migration:run": "npx ts-node ./node_modules/typeorm/cli.js migration:run -d src/database/data-source.ts",
-    "migration:generate": "tsx ./node_modules/typeorm/cli.js migration:generate -d src/database/data-source.ts"
+    "migration:run": "typeorm-ts-node-commonjs -d ./src/database/data-source.ts migration:run",
+    "migration:revert": "typeorm-ts-node-commonjs -d ./src/database/data-source.ts migration:revert",
+    "migration:show": "typeorm-ts-node-commonjs -d ./src/database/data-source.ts migration:show",
+    "migration:create": "typeorm-ts-node-commonjs migration:create ./src/database/migrations/Migration",
+    "migration:generate": "typeorm-ts-node-commonjs -d ./src/database/data-source.ts migration:generate ./src/database/migrations/alterarUsuario",
+    "seed:run": "ts-node ./src/database/seeds/runSeeds.ts"
   },
   "keywords": [],
   "author": "",

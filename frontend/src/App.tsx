@@ -1,7 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import Home from "./pages/Home"
 import Login from "./pages/Login"
-import { PrivateRoute } from "./services/PrivateRoute"
+import DetalhesProvedor from "./pages/DetalhesProvedor"
+
 
 function App() {
 
@@ -13,10 +14,9 @@ function App() {
         <Route
           path="/"
           element={
-            <PrivateRoute>
-              <Home />
-            </PrivateRoute>
+            <Home />
           } />
+        <Route path="/provedores" element={<DetalhesProvedor />} />
       </Routes>
     </BrowserRouter>
   )
