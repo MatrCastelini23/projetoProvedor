@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon",
     "migration:run": "npx ts-node ./node_modules/typeorm/cli.js migration:run -d src/database/data-source.ts",
-    "migration:generate": "npx typeorm migration:generate src/migrations/users -d src/database/data-source.ts"
+    "migration:generate": "tsx ./node_modules/typeorm/cli.js migration:generate -d src/database/data-source.ts"
   },
   "keywords": [],
   "author": "",
@@ -33,6 +33,7 @@
     "@types/node": "^26.1.2",
     "nodemon": "^3.1.14",
     "ts-node": "^10.9.2",
+    "typeorm-extension": "^4.0.0",
     "typescript": "^7.0.2"
   }
 }
