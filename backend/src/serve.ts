@@ -12,23 +12,19 @@ const PORT = process.env.PORT;
 
 server.use(cors());
 server.use(express.json());
-
 server.use(userRoute);
-
 
 
 server.use(errorMiddleware);
 
-
-
 AppDataSource.initialize()
-    .then(() => {
-        console.log("DataBase connected");
-    })
-    .catch((error) => {
-        console.error("Erro ao estabalidade conexão com o banco de dados: ", error);
-    });
+  .then(() => {
+    console.log("DataBase connected");
+  })
+  .catch((error) => {
+    console.error("Erro ao estabalidade conexão com o banco de dados: ", error);
+  });
 
 server.listen(PORT, () => {
-    console.log(`Servidor rodando na porta ${PORT}`);
+  console.log(`Servidor rodando na porta ${PORT}`);
 })

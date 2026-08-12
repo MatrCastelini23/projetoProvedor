@@ -4,6 +4,7 @@ import AppDataSource from "../database/data-source";
 import { UsersEntity } from "../models/UserEntity";
 import { UserService } from "../services/UserService";
 import { UserController } from "../controllers/UserController";
+import { AuthMiddleware } from "../middlewares/AuthMiddleware";
 
 
 
@@ -17,6 +18,5 @@ const userController = new UserController(userService);
 
 userRoute.post("/newuser", userController.newUser);
 userRoute.post("/login", userController.loginUser);
-
 
 export default userRoute;
