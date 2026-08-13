@@ -5,12 +5,12 @@
   "main": "./src/serve.ts",
   "scripts": {
     "dev": "nodemon",
-    "migration:run": "typeorm-ts-node-commonjs -d ./src/database/data-source.ts migration:run",
+    "migration:run": "npx ts-node ./node_modules/typeorm/cli.js migration:run -d src/database/data-source.ts",
+    "migration:generate": "tsx ./node_modules/typeorm/cli.js migration:generate -d src/database/data-source.ts",
     "migration:revert": "typeorm-ts-node-commonjs -d ./src/database/data-source.ts migration:revert",
     "migration:show": "typeorm-ts-node-commonjs -d ./src/database/data-source.ts migration:show",
     "migration:create": "typeorm-ts-node-commonjs migration:create ./src/database/migrations/Migration",
-    "migration:generate": "typeorm-ts-node-commonjs -d ./src/database/data-source.ts migration:generate ./src/database/migrations/alterarUsuario",
-    "seed:run": "ts-node ./src/database/seeds/runSeeds.ts"
+    "seed:run": "tsx ./src/database/seeds/runSeeds.ts"
   },
   "keywords": [],
   "author": "",
@@ -25,7 +25,6 @@
     "express": "^5.2.1",
     "jsonwebtoken": "^9.0.3",
     "reflect-metadata": "^0.2.2",
-    "tsx": "^4.23.11",
     "typeorm": "^1.1.0",
     "zod": "^4.4.3"
   },
@@ -36,8 +35,8 @@
     "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^26.1.2",
     "nodemon": "^3.1.14",
-    "ts-node": "^10.9.2",
+    "tsx": "^4.23.12",
     "typeorm-extension": "^4.0.0",
-    "typescript": "^7.0.2"
+    "typescript": "^5.9.3"
   }
 }

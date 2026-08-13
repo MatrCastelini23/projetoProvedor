@@ -24,7 +24,7 @@ dist-ssr
 *.sw?
 
 .env
-.sqlite
+*.sqlite
 package-lock.json
 
 .sqlite

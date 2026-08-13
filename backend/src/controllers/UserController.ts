@@ -1,9 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { UserService } from "../services/UserService";
-import jwt from "jsonwebtoken";
 import z from "zod";
 import AppError from "../utils/AppError";
-import { AuthMiddleware } from "../middlewares/AuthMiddleware";
 
 
 export class UserController {

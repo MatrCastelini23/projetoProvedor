@@ -1,5 +1,6 @@
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import ProvidersEntity from "./ProviderEntity";
+import { DidsEntity } from "./DidsEntity";
 
 @Entity('providersClient')
 export class ProvidersClientEntity {
@@ -17,6 +18,9 @@ export class ProvidersClientEntity {
 
   @Column({ type: "date" })
   dataCadastro!: Date
+
+  @OneToMany(() => DidsEntity, (dids) => dids.providerClient)
+  dids!: DidsEntity[];
 
   @ManyToOne(() => ProvidersEntity, (provider) => provider.clients, { onDelete: "SET NULL" })
   @JoinColumn({ name: "provider_id" })
