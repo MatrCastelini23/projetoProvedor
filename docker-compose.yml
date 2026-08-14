@@ -1,27 +1,75 @@
+version: '3.8'
+
 services:
-  frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-      args:
-        VITE_API_URL: http://http://localhost:3000/
-
-    container_name: frontend-container
-
-    # Maps host's 8080 port to the container's 8080 listening port
-    ports:
-      - "8080:8080"
-
-    image: my-frontend-app:v1.0.0
+  # Banco de Dados MySQL
+  db:
+    image: mysql:8.0
+    container_name: mysql_db_dev
     restart: always
-  backend:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
-    container_name: backend-container
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: db_provedor
+      MYSQL_USER: api_user
+      MYSQL_PASSWORD: user_password
+    ports:
+      - "3306:3306"
     volumes:
-      - ./backend:/var/www/html
-      - /var/www/html/node_modules
-    ports:
-      - "3000:3000"
+      - mysql_dev_data:/var/lib/mysql
+    networks:
+      - app-network
+
+  # Gerenciador do Banco de Dados
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin_dev
     restart: always
+    ports:
+      - "8080:80"
+    environment:
+      PMA_HOST: db
+      PMA_USER: root
+      PMA_PASSWORD: root_password
+    depends_on:
+      - db
+    networks:
+      - app-network
+
+  # Backend (Node.js + Nodemon)
+  backend:
+    build: ./backend
+    container_name: node_backend_dev
+    restart: always
+    environment:
+      - NODE_ENV=development
+      - PORT=3000
+      - DB_HOST=db
+      - DB_USER=api_user
+      - DB_PASSWORD=user_password
+      - DB_NAME=db_provedor
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    depends_on:
+      - db
+    networks:
+      - app-network
+
+  # Frontend (React Vite Dev Server)
+  frontend:
+    build: ./frontend
+    container_name: react_frontend_dev
+    restart: always
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  mysql_dev_data:

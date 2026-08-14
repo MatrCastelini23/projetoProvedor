@@ -4,6 +4,8 @@
   "description": "",
   "main": "./src/serve.ts",
   "scripts": {
+    "build": "tsc",
+    "start": "node dist/server.js",
     "dev": "nodemon",
     "migration:run": "npx ts-node ./node_modules/typeorm/cli.js migration:run -d src/database/data-source.ts",
     "migration:generate": "tsx ./node_modules/typeorm/cli.js migration:generate -d src/database/data-source.ts",
@@ -18,12 +20,12 @@
   "type": "module",
   "dependencies": {
     "bcrypt": "^6.0.0",
-    "better-sqlite3": "^12.11.1",
     "body-parser": "^2.3.0",
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "jsonwebtoken": "^9.0.3",
+    "mysql2": "^3.23.3",
     "reflect-metadata": "^0.2.2",
     "typeorm": "^1.1.0",
     "zod": "^4.4.3"

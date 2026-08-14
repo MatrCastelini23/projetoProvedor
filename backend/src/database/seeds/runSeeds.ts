@@ -5,39 +5,12 @@ import ProvidersClientEntity from "../../models/ProviderClientEntity";
 import ProvidersEntity from "../../models/ProviderEntity";
 import PlanosEntity from "../../models/PlanosEntity";
 
-/**
- * Helper para acessar um índice de array com segurança de tipos.
- * Necessário por causa do "noUncheckedIndexedAccess" / "exactOptionalPropertyTypes",
- * que faz o TS tratar array[i] como T | undefined.
- */
 function at<T>(arr: T[], index: number): T {
   const item = arr[index];
   if (item === undefined) {
     throw new Error(`Índice ${index} não encontrado no array de seed.`);
   }
   return item;
-}
-
-/**
- * Ordem de inserção respeitando as FKs:
- * 1. planos            (sem dependência)
- * 2. providers          -> depende de planos (plan_id)
- * 3. providersClient    -> depende de providers (provider_id)
- * 4. dids               -> depende de providersClient (providersClient_id)
- *
- * Ordem de limpeza é a inversa, para não violar constraint de FK.
- */
-
-async function clearTables() {
-  const didsRepo = AppDataSource.getRepository(DidsEntity);
-  const clientRepo = AppDataSource.getRepository(ProvidersClientEntity);
-  const providerRepo = AppDataSource.getRepository(ProvidersEntity);
-  const planoRepo = AppDataSource.getRepository(PlanosEntity);
-
-  await didsRepo.query('DELETE FROM "dids"');
-  await clientRepo.query('DELETE FROM "providersClient"');
-  await providerRepo.query('DELETE FROM "providers"');
-  await planoRepo.query('DELETE FROM "planos"');
 }
 
 async function seedPlanos(): Promise<PlanosEntity[]> {
@@ -147,9 +120,6 @@ async function runSeeds() {
   try {
     await AppDataSource.initialize();
     console.log("Conexão com o banco estabelecida.");
-
-    await clearTables();
-    console.log("Tabelas limpas com sucesso.");
 
     const planos = await seedPlanos();
     console.log(`${planos.length} planos criados.`);

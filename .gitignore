@@ -30,4 +30,3 @@ package-lock.json
 .sqlite
 eslint.config.js
 nginx.conf
-package-lock.json
