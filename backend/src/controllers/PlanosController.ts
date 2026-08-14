@@ -1,8 +1,10 @@
-import { UserService } from "../services/UserService";
-import z, { int } from "zod";
+import { Request, Response, NextFunction } from "express";
+import z from "zod";
+import { PlanosService } from "../services/PlanosSerivice";
+import AppError from "../utils/AppError";
 
 export class PlanosController {
-  constructor(private readonly serv: UserService) { };
+  constructor(private readonly serv: PlanosService) { };
 
   private schemaCreate = z.object({
     name: z.string({ message: "Nome obrigatorio" }).length(100),
@@ -11,5 +13,26 @@ export class PlanosController {
     totalDids: z.number({ message: "Use números inteiro" }).int(),
   })
 
+  newPlan = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const data = this.schemaCreate.parse(req.body);
+      await this.serv.createPlan(data);
 
+      res.status(201).json({ message: "Plano Criado" });
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  listAllPlans = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const data = await this.serv.getPlans();
+      if (!data) {
+        throw new AppError(404, "Nenhum plano cadastrado")
+      }
+      res.status(200).json(data);
+    } catch (error) {
+      next(error);
+    }
+  }
 }

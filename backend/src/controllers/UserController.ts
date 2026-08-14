@@ -35,7 +35,7 @@ export class UserController {
   newUser = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const data = this.schemaCreate.parse(req.body);
-      const create = await this.serv.createUser(data);
+      await this.serv.createUser(data);
       res.status(201).json({ message: "Usuario criado com sucesso !" })
     } catch (error) {
       next(error);

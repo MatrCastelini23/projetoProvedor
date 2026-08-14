@@ -4,11 +4,6 @@ import AppDataSource from "../database/data-source";
 import { UsersEntity } from "../models/UserEntity";
 import { UserService } from "../services/UserService";
 import { UserController } from "../controllers/UserController";
-import { AuthMiddleware } from "../middlewares/AuthMiddleware";
-
-
-
-
 
 const userRoute = Router();
 

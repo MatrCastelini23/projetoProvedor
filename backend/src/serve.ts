@@ -5,6 +5,7 @@ import cors from "cors";
 import AppDataSource from "./database/data-source";
 import userRoute from "./routes/userRoute";
 import { errorMiddleware } from "./middlewares/ErrorMiddleware";
+import planRoute from "./routes/planosRoute";
 
 
 const server = express();
@@ -13,7 +14,7 @@ const PORT = process.env.PORT;
 server.use(cors());
 server.use(express.json());
 server.use(userRoute);
-
+server.use(planRoute);
 
 server.use(errorMiddleware);
 
