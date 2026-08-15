@@ -20,9 +20,11 @@ export class PlanosRepository implements IPlanosRepository {
   async getPlans(): Promise<PlanosEntity[]> {
     const data = await this.repo.find({
       select: {
+        id: true,
         name: true,
         price: true,
         totalDids: true,
+        providers: true,
       }
     })
     return data ?? undefined
