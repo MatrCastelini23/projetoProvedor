@@ -1,5 +1,5 @@
 import { Repository } from "typeorm";
-import { UsersEntity } from "../models/UserEntity";
+import { UsersEntity } from "../models/UsersEntity";
 
 
 export interface IUserRepository {
