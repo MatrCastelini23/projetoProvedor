@@ -1,1 +1,52 @@
 @import "tailwindcss";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* Layout base: garante que o footer fique sempre no fim da página */
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  @apply flex flex-col min-h-screen bg-gray-50;
+}
+
+/* Conteúdo principal cresce para empurrar o footer para baixo */
+main {
+  @apply flex-1;
+}
+
+/* ================================
+   HEADER
+================================ */
+header {
+  @apply bg-blue-950 text-white border-b-4 border-orange-500 shadow-md;
+}
+
+header a {
+  @apply text-white hover:text-orange-400 transition-colors;
+}
+
+header .logo {
+  @apply text-orange-500 font-bold;
+}
+
+/* ================================
+   FOOTER
+================================ */
+footer {
+  @apply bg-blue-950 text-white border-t-4 border-orange-500 mt-auto;
+}
+
+footer a {
+  @apply text-white hover:text-orange-400 transition-colors;
+}
+
+footer .destaque {
+  @apply text-orange-500 font-semibold;
+}
