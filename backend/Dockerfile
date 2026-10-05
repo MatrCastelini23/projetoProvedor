@@ -15,7 +15,8 @@ FROM base AS build
 COPY package*.json ./
 RUN npm ci
 COPY . .
-RUN npm run build
+RUN npm run build --no-cache backend
+RUN docker compose run --rm --entrypoint sh backend
 
 # ---------- Dependências só de produção ----------
 FROM base AS prod-deps
