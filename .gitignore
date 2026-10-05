@@ -25,7 +25,6 @@ dist-ssr
 
 .env
 *.sqlite
-package-lock.json
 
 .sqlite
 eslint.config.js
