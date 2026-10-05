@@ -21,7 +21,7 @@ export class UserService {
     if (passwordPass === false) {
       throw new AppError(401, "Credendciais erradas");
     }
-    const token = jwt.sign({ email: user.email }, ACCESS_TOKEN_KEY as string, { expiresIn: "2h", })
+    const token = jwt.sign({ email: user.email }, ACCESS_TOKEN_KEY as string, { expiresIn: "5h", })
     return token;
   }
 

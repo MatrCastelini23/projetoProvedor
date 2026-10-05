@@ -1,77 +1,52 @@
-version: '3.8'
+name: provedores
 
 services:
-  # Banco de Dados MySQL
-  db:
-    image: mysql:8.0
-    container_name: mysql_db_dev
-    restart: always
+  mysql:
+    image: mysql:8.4
+    restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: root_password
-      MYSQL_DATABASE: db_provedor
-      MYSQL_USER: api_user
-      MYSQL_PASSWORD: user_password
-    ports:
-      - "3306:3306"
+      - MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?}
+      - MYSQL_DATABASE: ${DB_NAME:?}
+      - MYSQL_USER: ${DB:USER:?}
+      - MYSQL_PASSWORD: ${DB_PASSWORD:?}
     volumes:
-      - mysql_dev_data:/var/lib/mysql
-    networks:
-      - app-network
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-p${MYSQL_ROOT_PASSWORD}" ]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
 
-  # Gerenciador do Banco de Dados
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    container_name: phpmyadmin_dev
-    restart: always
-    ports:
-      - "8080:80"
-    environment:
-      PMA_HOST: db
-      PMA_USER: root
-      PMA_PASSWORD: root_password
-    depends_on:
-      - db
-    networks:
-      - app-network
-
-  # Backend (Node.js + Nodemon)
   backend:
-    build: ./backend
-    container_name: node_backend_dev
-    restart: always
-    ports:
-      - "3000:3000"
+    build:
+      context: ./backend
+      target: production
+    restart: unless-stopped
     environment:
-      - NODE_ENV=development
-      - PORT=3000
-      - DB_HOST=db
-      - DB_USER=api_user
-      - DB_PASSWORD=user_password
-      - DB_NAME=db_provedor
-    volumes:
-      - ./backend:/app
-      - /app/node_modules
-    depends_on:
-      - db
-    networks:
-      - app-network
-
-  # Frontend (React Vite Dev Server)
-  frontend:
-    build: ./frontend
-    container_name: react_frontend_dev
-    restart: always
+      NODE_ENV: production
+      PORT: 3000
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_NAME: ${DB_NAME:?}
+      DB_USER: ${DB_USER:?}
+      DB_PASSWORD: ${DB_PASSWORD:?}
+      JWT_SECRET: ${JWT_SECRET:?}
+      JWT_EXPIRES_IN: ${JWT_EXPIRES_IN:-1h}
     ports:
-      - "5173:5173"
-    volumes:
-      - ./frontend:/app
-      - /app/node_modules
-    networks:
-      - app-network
+      - "127.0.0.1:3000:3000"
+    depends_on:
+      - mysql:
+          condition: service_healthy
 
-networks:
-  app-network:
-    driver: bridge
-
+    frontend:
+      build:
+        context: ./frontend
+        target: production
+        args:
+          VITE_API_URL: ${VITE_API_URL:-/API}
+      restart: unless-stopped
+      ports:
+        - "127.0.0.1:8080:80"
 volumes:
-  mysql_dev_data:
+  mysql_data:

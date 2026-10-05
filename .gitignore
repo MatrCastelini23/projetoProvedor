@@ -29,4 +29,9 @@ package-lock.json
 
 .sqlite
 eslint.config.js
-nginx.conf
+
+node_modules
+dist
+.env
+backups
+

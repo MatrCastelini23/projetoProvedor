@@ -1,0 +1,42 @@
+name: Deploy produção
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+    environment: production
+    env:
+      # Secrets
+      MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+      JWT_SECRET: ${{ secrets.JWT_SECRET }}
+      # Variables
+      DB_NAME: ${{ vars.DB_NAME }}
+      DB_USER: ${{ vars.DB_USER }}
+      JWT_EXPIRES_IN: ${{ vars.JWT_EXPIRES_IN }}
+      VITE_API_URL: ${{ vars.VITE_API_URL }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Subir banco e aguardar healthcheck
+        run: docker compose up -d --wait mysql
+
+      - name: Build das imagens
+        run: docker compose build
+
+      - name: Rodar migrations
+        run: docker compose run --rm backend npx typeorm migration:run -d dist/database/data-source.js
+
+      - name: Subir aplicação
+        run: docker compose up -d --remove-orphans
+
+      - name: Limpar imagens antigas
+        run: docker image prune -f

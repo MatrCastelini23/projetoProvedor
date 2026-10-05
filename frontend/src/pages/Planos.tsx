@@ -2,9 +2,13 @@ import useFetchPlans from "../api/localhost/Plans";
 import Spinner from "../components/ui/effects/Spinner";
 import axios from "axios";
 import { LoginRediretion } from "../services/LoginRediretion";
+import { useState } from "react";
+import { useMoneyInput } from "../hooks/useMoneyInput";
+
 
 function Planos() {
   const { plans, loading, error } = useFetchPlans();
+  const { value, onChange } = useMoneyInput();
 
   if (loading) return (
     <Spinner />
@@ -37,7 +41,7 @@ function Planos() {
   return (
     <>
       <main className="w-full rounded-2xl p-16">
-        <div>
+        <div className="flex gap-8 items-start justify-center flex-wrap">
           <div className="w-150 bg-white rounded-2xl shadow-md p-8">
             <h1 className="text-2xl font-bold text-center text-blue-950 mb-6">Planos criados</h1>
             <table className="w-full text-left">
@@ -64,23 +68,37 @@ function Planos() {
 
             <form className="flex flex-col gap-4">
               <div className="flex flex-col gap-1">
-                <label htmlFor="email" className="text-sm font-medium text-gray-700">
+                <label htmlFor="name" className="text-sm font-medium text-gray-700">
                   Nome:
                 </label>
                 <input
-                  type="email"
-                  id="email"
+                  type="name"
+                  id="name"
                   className="border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500"
                 />
               </div>
 
               <div className="flex flex-col gap-1">
-                <label htmlFor="password" className="text-sm font-medium text-gray-700">
-                  Preço
+                <label htmlFor="description" className="text-sm font-medium text-gray-700">
+                  Descrição:
                 </label>
                 <input
-                  type="password"
-                  id="password"
+                  type="text"
+                  id="description"
+                  className="border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500"
+                />
+              </div>
+
+              <div className="flex flex-col gap-1">
+                <label htmlFor="price" className="text-sm font-medium text-gray-700">
+                  Preço R$:
+                </label>
+                <input
+                  type="text"
+                  id="price"
+                  value={value}
+                  onChange={onChange}
+                  inputMode="numeric"
                   className="border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500"
                 />
               </div>
