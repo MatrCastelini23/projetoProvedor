@@ -2,7 +2,6 @@ import useFetchPlans from "../api/localhost/Plans";
 import Spinner from "../components/ui/effects/Spinner";
 import axios from "axios";
 import { LoginRediretion } from "../services/LoginRediretion";
-import { useState } from "react";
 import { useMoneyInput } from "../hooks/useMoneyInput";
 
 

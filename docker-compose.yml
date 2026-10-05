@@ -53,14 +53,15 @@ services:
       mysql:
         condition: service_healthy
 
-    frontend:
-      build:
-        context: ./frontend
-        target: production
-        args:
-          VITE_API_URL: ${VITE_API_URL:-/API}
-      restart: unless-stopped
-      ports:
-        - "127.0.0.1:8080:80"
+  frontend:
+    build:
+      context: ./frontend
+      target: production
+      args:
+        VITE_API_URL: ${VITE_API_URL:-/API}
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8080:80"
+
 volumes:
   mysql_data:

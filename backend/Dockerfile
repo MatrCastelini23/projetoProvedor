@@ -5,7 +5,7 @@ WORKDIR /app
 # ---------- DEV: hot reload (código vem por bind mount) ----------
 FROM base AS dev
 COPY package*.json ./
-RUN npm i
+RUN npm ci
 COPY . .
 EXPOSE 3000
 CMD ["npm", "run", "dev"]
