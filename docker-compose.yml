@@ -1,7 +1,6 @@
 name: provedores
 
 services:
-  services:
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
     container_name: acesso_banco
@@ -20,10 +19,10 @@ services:
     image: mysql:8.4
     restart: unless-stopped
     environment:
-      - MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?}
-      - MYSQL_DATABASE: ${DB_NAME:?}
-      - MYSQL_USER: ${DB_USER:?}
-      - MYSQL_PASSWORD: ${DB_PASSWORD:?}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?}
+      MYSQL_DATABASE: ${DB_NAME:?}
+      MYSQL_USER: ${DB_USER:?}
+      MYSQL_PASSWORD: ${DB_PASSWORD:?}
     volumes:
       - mysql_data:/var/lib/mysql
     healthcheck:
@@ -51,8 +50,8 @@ services:
     ports:
       - "127.0.0.1:3000:3000"
     depends_on:
-      - mysql:
-          condition: service_healthy
+      mysql:
+        condition: service_healthy
 
     frontend:
       build:
