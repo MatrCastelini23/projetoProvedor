@@ -1,6 +1,21 @@
 name: provedores
 
 services:
+  services:
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: acesso_banco
+    restart: always
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: ${DB_HOST:?}
+      PMA_USER: ${DB_ROOT_USER}
+      PMA_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      PMA_PORT: ${MYSQL_ROOT_PASSWORD:?}
+    depends_on:
+      - mysql
+
   mysql:
     image: mysql:8.4
     restart: unless-stopped
