@@ -14,7 +14,7 @@ const planService = new PlanosService(planRepository);
 const planController = new PlanosController(planService);
 
 
-planRoute.post("/api/createPlan", AuthMiddleware, planController.newPlan);
-planRoute.get("/api/getPlans", AuthMiddleware, planController.listAllPlans);
+planRoute.post("/createPlan", AuthMiddleware, planController.newPlan);
+planRoute.get("/getPlans", AuthMiddleware, planController.listAllPlans);
 
 export default planRoute;

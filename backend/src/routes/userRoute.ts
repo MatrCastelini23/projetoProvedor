@@ -11,7 +11,7 @@ const userRepository = new UserRepository(AppDataSource.getRepository(UsersEntit
 const userService = new UserService(userRepository);
 const userController = new UserController(userService);
 
-userRoute.post("/api/newuser", userController.newUser);
-userRoute.post("/api/login", userController.loginUser);
+userRoute.post("/newuser", userController.newUser);
+userRoute.post("/login", userController.loginUser);
 
 export default userRoute;
