@@ -1,5 +1,5 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import ProvidersEntity from "./ProviderEntity";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn, Relation } from "typeorm";
+import ProvidersEntity from "./ProviderEntity.js";
 
 @Entity('planos')
 export class PlanosEntity {
@@ -19,7 +19,7 @@ export class PlanosEntity {
   totalDids!: number;
 
   @OneToMany(() => ProvidersEntity, (provider) => provider.plano)
-  providers!: ProvidersEntity[];
+  providers!: Relation<ProvidersEntity[]>;
 }
 
 export default PlanosEntity

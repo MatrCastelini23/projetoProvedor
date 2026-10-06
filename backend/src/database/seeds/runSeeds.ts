@@ -1,9 +1,9 @@
 import "reflect-metadata";
-import AppDataSource from "../data-source";
-import DidsEntity from "../../models/DidsEntity";
-import ProvidersClientEntity from "../../models/ProviderClientEntity";
-import ProvidersEntity from "../../models/ProviderEntity";
-import PlanosEntity from "../../models/PlanosEntity";
+import AppDataSource from "../data-source.js";
+import DidsEntity from "../../models/DidsEntity.js";
+import ProvidersClientEntity from "../../models/ProviderClientEntity.js";
+import ProvidersEntity from "../../models/ProviderEntity.js";
+import PlanosEntity from "../../models/PlanosEntity.js";
 
 function at<T>(arr: T[], index: number): T {
   const item = arr[index];

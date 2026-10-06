@@ -1,6 +1,6 @@
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import ProvidersEntity from "./ProviderEntity";
-import { DidsEntity } from "./DidsEntity";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, Relation } from "typeorm";
+import ProvidersEntity from "./ProviderEntity.js";
+import { DidsEntity } from "./DidsEntity.js";
 
 @Entity('providersClient')
 export class ProvidersClientEntity {
@@ -24,7 +24,7 @@ export class ProvidersClientEntity {
 
   @ManyToOne(() => ProvidersEntity, (provider) => provider.clients, { onDelete: "SET NULL" })
   @JoinColumn({ name: "provider_id" })
-  provider!: ProvidersEntity;
+  provider!: Relation<ProvidersEntity>;
 }
 
 export default ProvidersClientEntity;

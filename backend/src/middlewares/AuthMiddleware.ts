@@ -1,7 +1,7 @@
 import "dotenv/config"
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
-import AppError from "../utils/AppError";
+import AppError from "../utils/AppError.js";
 
 const ACCESS_TOKEN_KEY = process.env.ACCESS_TOKEN_KEY;
 

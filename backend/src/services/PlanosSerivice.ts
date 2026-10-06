@@ -1,5 +1,5 @@
-import PlanosEntity from "../models/PlanosEntity";
-import { IPlanosRepository } from "../repositories/planosRepository";
+import PlanosEntity from "../models/PlanosEntity.js";
+import { IPlanosRepository } from "../repositories/planosRepository.js";
 
 
 

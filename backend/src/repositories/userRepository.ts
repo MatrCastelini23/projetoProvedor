@@ -1,5 +1,5 @@
 import { Repository } from "typeorm";
-import { UsersEntity } from "../models/UsersEntity";
+import { UsersEntity } from "../models/UsersEntity.js";
 
 
 export interface IUserRepository {

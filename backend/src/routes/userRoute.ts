@@ -1,9 +1,9 @@
 import { Router } from "express";
-import { UserRepository } from "../repositories/userRepository";
-import AppDataSource from "../database/data-source";
-import { UsersEntity } from "../models/UsersEntity";
-import { UserService } from "../services/UserService";
-import { UserController } from "../controllers/UserController";
+import { UserRepository } from "../repositories/userRepository.js";
+import AppDataSource from "../database/data-source.js";
+import { UsersEntity } from "../models/UsersEntity.js";
+import { UserService } from "../services/UserService.js";
+import { UserController } from "../controllers/UserController.js";
 
 const userRoute = Router();
 

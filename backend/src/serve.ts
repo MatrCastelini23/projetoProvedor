@@ -2,10 +2,10 @@ import "reflect-metadata";
 import "dotenv/config";
 import express from "express";
 import cors from "cors";
-import AppDataSource from "./database/data-source";
-import userRoute from "./routes/userRoute";
-import { errorMiddleware } from "./middlewares/ErrorMiddleware";
-import planRoute from "./routes/planosRoute";
+import AppDataSource from "./database/data-source.js";
+import userRoute from "./routes/userRoute.js";
+import { errorMiddleware } from "./middlewares/ErrorMiddleware.js";
+import planRoute from "./routes/planosRoute.js";
 
 
 const server = express();

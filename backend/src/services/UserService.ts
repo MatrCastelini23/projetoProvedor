@@ -1,8 +1,8 @@
 import * as bcrypt from "bcrypt";
 import "dotenv/config"
-import { IUserRepository } from "../repositories/userRepository";
-import AppError from "../utils/AppError";
-import { UserPublic, UsersEntity } from "../models/UsersEntity";
+import { IUserRepository } from "../repositories/userRepository.js";
+import AppError from "../utils/AppError.js";
+import { UserPublic, UsersEntity } from "../models/UsersEntity.js";
 import jwt from "jsonwebtoken"
 
 const ACCESS_TOKEN_KEY = process.env.ACCESS_TOKEN_KEY;

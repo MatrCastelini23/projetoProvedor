@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import z from "zod";
-import { PlanosService } from "../services/PlanosSerivice";
-import AppError from "../utils/AppError";
+import { PlanosService } from "../services/PlanosSerivice.js";
+import AppError from "../utils/AppError.js";
 
 export class PlanosController {
   constructor(private readonly serv: PlanosService) { };

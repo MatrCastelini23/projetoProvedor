@@ -1,5 +1,5 @@
 import { Repository } from "typeorm";
-import PlanosEntity from "../models/PlanosEntity";
+import PlanosEntity from "../models/PlanosEntity.js";
 
 
 

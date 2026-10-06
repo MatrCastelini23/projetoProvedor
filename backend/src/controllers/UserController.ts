@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
-import { UserService } from "../services/UserService";
+import { UserService } from "../services/UserService.js";
 import z from "zod";
-import AppError from "../utils/AppError";
+import AppError from "../utils/AppError.js";
 
 
 export class UserController {

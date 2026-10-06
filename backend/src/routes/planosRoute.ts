@@ -1,10 +1,10 @@
 import { Router } from "express";
-import { PlanosRepository } from "../repositories/planosRepository";
-import AppDataSource from "../database/data-source";
-import PlanosEntity from "../models/PlanosEntity";
-import { PlanosService } from "../services/PlanosSerivice";
-import { PlanosController } from "../controllers/PlanosController";
-import { AuthMiddleware } from "../middlewares/AuthMiddleware";
+import { PlanosRepository } from "../repositories/planosRepository.js";
+import AppDataSource from "../database/data-source.js";
+import PlanosEntity from "../models/PlanosEntity.js";
+import { PlanosService } from "../services/PlanosSerivice.js";
+import { PlanosController } from "../controllers/PlanosController.js";
+import { AuthMiddleware } from "../middlewares/AuthMiddleware.js";
 
 
 const planRoute = Router();

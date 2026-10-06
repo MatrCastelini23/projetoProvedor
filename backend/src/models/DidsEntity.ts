@@ -1,6 +1,5 @@
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import { string } from "zod";
-import ProvidersClientEntity from "./ProviderClientEntity";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, Relation } from "typeorm";
+import ProvidersClientEntity from "./ProviderClientEntity.js";
 
 
 @Entity('dids')
@@ -13,7 +12,7 @@ export class DidsEntity {
 
   @ManyToOne(() => ProvidersClientEntity, (client) => client.dids, { onDelete: "CASCADE" })
   @JoinColumn({ name: "providersClient_id" })
-  providerClient!: ProvidersClientEntity;
+  providerClient!: Relation<ProvidersClientEntity>;
 }
 
 export default DidsEntity;
