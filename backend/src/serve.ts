@@ -6,15 +6,17 @@ import AppDataSource from "./database/data-source.js";
 import userRoute from "./routes/userRoute.js";
 import { errorMiddleware } from "./middlewares/ErrorMiddleware.js";
 import planRoute from "./routes/planosRoute.js";
+import healthRoute from "./routes/healthRoute.ts";
 
 
 const server = express();
 const PORT = process.env.PORT;
-
-server.use(cors());
+server.set("trust proxy", 1);
+server.use(cors({ origin: process.env.CORS_ORIGIN?.split(",") ?? false }));
 server.use(express.json());
 server.use(userRoute);
 server.use(planRoute);
+server.use(healthRoute);
 
 server.use(errorMiddleware);
 
