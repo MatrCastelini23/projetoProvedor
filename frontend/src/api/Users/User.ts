@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const BASE_URL = import.meta.env.VITE_URL_BASE;
+const BASE_URL = import.meta.env.VITE_API_URL;
 
 export interface ILoginCredentials {
   email: string,

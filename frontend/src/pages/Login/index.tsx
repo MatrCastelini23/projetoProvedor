@@ -1,5 +1,5 @@
 import { useForm, type SubmitHandler } from 'react-hook-form'
-import { Logar, type ILoginCredentials } from '../api/localhost/User';
+import { Logar, type ILoginCredentials } from '../../api/Users/User';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 

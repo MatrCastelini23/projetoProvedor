@@ -1,8 +1,8 @@
-import useFetchPlans from "../api/localhost/Plans";
-import Spinner from "../components/ui/effects/Spinner";
+import useFetchPlans from "../../api/Planos/Plans";
+import Spinner from "../../components/ui/effects/Spinner";
 import axios from "axios";
-import { LoginRediretion } from "../services/LoginRediretion";
-import { useMoneyInput } from "../hooks/useMoneyInput";
+import { LoginRediretion } from "../../services/LoginRediretion";
+import { useMoneyInput } from "../../hooks/useMoneyInput";
 
 
 function Planos() {
