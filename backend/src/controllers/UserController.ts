@@ -16,6 +16,7 @@ export class UserController {
     name: z.string({ message: "Nome obrigatorio" }),
     email: z.string().email(),
     password: z.string({ message: "Senha obrigatoria" }),
+    acess: z.boolean(),
   })
 
   loginUser = async (req: Request, res: Response, next: NextFunction) => {

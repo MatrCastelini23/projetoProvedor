@@ -10,6 +10,9 @@ export class ProvidersClientEntity {
   @Column({ type: "varchar", length: 100 })
   razaosocial!: string;
 
+  @Column({ type: "varchar", length: 14 })
+  cnpjCpf!: string;
+
   @Column({ type: "varchar", length: 100 })
   email!: string;
 

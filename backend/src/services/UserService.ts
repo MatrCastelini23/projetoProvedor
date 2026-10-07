@@ -5,7 +5,7 @@ import AppError from "../utils/AppError.js";
 import { UserPublic, UsersEntity } from "../models/UsersEntity.js";
 import jwt from "jsonwebtoken"
 
-const ACCESS_TOKEN_KEY = process.env.ACCESS_TOKEN_KEY;
+const ACCESS_TOKEN_KEY = process.env.JWT_SECRET;
 
 export class UserService {
   constructor(private readonly repo: IUserRepository) { };
@@ -21,11 +21,11 @@ export class UserService {
     if (passwordPass === false) {
       throw new AppError(401, "Credendciais erradas");
     }
-    const token = jwt.sign({ email: user.email }, ACCESS_TOKEN_KEY as string, { expiresIn: "5h", })
+    const token = jwt.sign({ email: user.email }, ACCESS_TOKEN_KEY as string, { expiresIn: "1h", })
     return token;
   }
 
-  async createUser(data: { name: string; email: string; password: string }): Promise<UserPublic> {
+  async createUser(data: { name: string; email: string; password: string, acess: boolean }): Promise<UserPublic> {
     const emailExists = await this.repo.getUserByEmail(data.email);
     if (emailExists) {
       throw new AppError(409, "Não é possivel usar essas credenciais");
@@ -37,6 +37,7 @@ export class UserService {
       name: data.name,
       email: data.email,
       password: passHash,
+      acess: data.acess
     } as Omit<UsersEntity, "id">;
 
     const user = await this.repo.createUser(dataUser);

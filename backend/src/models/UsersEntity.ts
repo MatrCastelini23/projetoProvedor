@@ -13,6 +13,9 @@ export class UsersEntity {
 
   @Column({ type: "varchar", length: 100, })
   password!: string;
+
+  @Column({ type: "boolean" })
+  acess!: boolean;
 }
 
 export type UserPublic = Omit<UsersEntity, "password">;

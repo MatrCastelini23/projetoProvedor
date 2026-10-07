@@ -2,7 +2,7 @@ import { Router } from "express";
 import { PlanosRepository } from "../repositories/planosRepository.js";
 import AppDataSource from "../database/data-source.js";
 import PlanosEntity from "../models/PlanosEntity.js";
-import { PlanosService } from "../services/PlanosSerivice.js";
+import { PlanosService } from "../services/PlanosService.ts";
 import { PlanosController } from "../controllers/PlanosController.js";
 import { AuthMiddleware } from "../middlewares/AuthMiddleware.js";
 

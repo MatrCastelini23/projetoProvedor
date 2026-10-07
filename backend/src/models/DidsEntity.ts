@@ -10,6 +10,12 @@ export class DidsEntity {
   @Column({ type: "varchar", length: 12 })
   dids!: string;
 
+  @Column({ type: "int" })
+  canais!: number;
+
+  @Column({ type: "date" })
+  data_ativacao!: Date;
+
   @ManyToOne(() => ProvidersClientEntity, (client) => client.dids, { onDelete: "CASCADE" })
   @JoinColumn({ name: "providersClient_id" })
   providerClient!: Relation<ProvidersClientEntity>;
