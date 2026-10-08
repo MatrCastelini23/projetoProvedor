@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios, { AxiosError } from "axios";
 import type { Plan } from "../../models/PlansEntity";
 
-const BASE_URL = import.meta.env.VITE_URL_BASE;
+const BASE_URL = import.meta.env.VITE_API_URL;
 
 interface IUseFetchPlans {
   plans: Plan[] | null;
