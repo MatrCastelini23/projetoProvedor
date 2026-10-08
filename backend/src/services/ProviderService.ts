@@ -5,7 +5,7 @@ import { IProviderRepository } from "../repositories/provedorRepository.js";
 export class ProvidersService {
   constructor(private readonly repo: IProviderRepository) { };
 
-  async createProvider(data: Omit<ProvidersEntity, "id" | "clients">) {
+  async createProvider(data: Omit<ProvidersEntity, "id" | "clients" | "plano">) {
     const provider = await this.repo.createProvider(data)
     return provider;
   }

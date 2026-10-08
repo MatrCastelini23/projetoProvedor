@@ -3,7 +3,7 @@ import ProvidersEntity from "../models/ProviderEntity.js";
 
 
 export interface IProviderRepository {
-  createProvider(data: Omit<ProvidersEntity, "id" | "clients">): Promise<ProvidersEntity>;
+  createProvider(data: Omit<ProvidersEntity, "id" | "clients" | "plano">): Promise<ProvidersEntity>;
   getProviders(): Promise<ProvidersEntity[]>;
   getProviderDetails(id: number): Promise<ProvidersEntity | null>;
 }
@@ -11,10 +11,15 @@ export interface IProviderRepository {
 export class ProviderRepository implements IProviderRepository {
   constructor(private readonly repo: Repository<ProvidersEntity>) { };
 
-  async createProvider(data: Omit<ProvidersEntity, "id" | "clients">): Promise<ProvidersEntity> {
-    const input = this.repo.create(data);
+  async createProvider(data: Omit<ProvidersEntity, "id" | "clients" | "plano"> & { planoId?: number | null }): Promise<ProvidersEntity> {
+    const { planoId, ...providerData } = data;
+
+    const input = this.repo.create({
+      ...providerData,
+      plano: planoId ? { id: planoId } : null,
+    });
     const save = await this.repo.save(input);
-    return (save);
+    return save;
   }
 
   async getProviders(): Promise<ProvidersEntity[]> {

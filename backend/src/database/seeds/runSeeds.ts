@@ -33,6 +33,7 @@ async function seedProviders(planos: PlanosEntity[]): Promise<ProvidersEntity[]>
   const providersData: Partial<ProvidersEntity>[] = [
     {
       razaosocial: "Telecom Alfa Ltda",
+      cnpj: "12345678000101", // Adicionado (max 14 caracteres)
       email: "contato@telecomalfa.com.br",
       phone: "11987654321",
       dataCadastro: new Date("2023-01-15"),
@@ -40,6 +41,7 @@ async function seedProviders(planos: PlanosEntity[]): Promise<ProvidersEntity[]>
     },
     {
       razaosocial: "Beta Comunicações S.A.",
+      cnpj: "98765432000199", // Adicionado (max 14 caracteres)
       email: "contato@betacomunicacoes.com.br",
       phone: "21976543210",
       dataCadastro: new Date("2023-05-22"),
@@ -47,6 +49,7 @@ async function seedProviders(planos: PlanosEntity[]): Promise<ProvidersEntity[]>
     },
     {
       razaosocial: "Gamma Voz e Dados Ltda",
+      cnpj: "45678912000188", // Adicionado (max 14 caracteres)
       email: "contato@gammavoz.com.br",
       phone: "31965432109",
       dataCadastro: new Date("2024-02-10"),
@@ -64,6 +67,7 @@ async function seedProvidersClient(providers: ProvidersEntity[]): Promise<Provid
   const clientsData: Partial<ProvidersClientEntity>[] = [
     {
       razaosocial: "Cliente Norte Comércio Ltda",
+      cnpjCpf: "11122233344", // Adicionado (max 14 caracteres)
       email: "financeiro@clientenorte.com.br",
       phone: "11912345678",
       dataCadastro: new Date("2023-03-01"),
@@ -71,6 +75,7 @@ async function seedProvidersClient(providers: ProvidersEntity[]): Promise<Provid
     },
     {
       razaosocial: "Cliente Sul Distribuidora S.A.",
+      cnpjCpf: "22233344455", // Adicionado (max 14 caracteres)
       email: "contato@clientesul.com.br",
       phone: "21923456789",
       dataCadastro: new Date("2023-07-19"),
@@ -78,6 +83,7 @@ async function seedProvidersClient(providers: ProvidersEntity[]): Promise<Provid
     },
     {
       razaosocial: "Cliente Leste Serviços Ltda",
+      cnpjCpf: "55566677788", // Adicionado (max 14 caracteres)
       email: "adm@clienteleste.com.br",
       phone: "31934567890",
       dataCadastro: new Date("2023-11-05"),
@@ -85,6 +91,7 @@ async function seedProvidersClient(providers: ProvidersEntity[]): Promise<Provid
     },
     {
       razaosocial: "Cliente Oeste Tecnologia Ltda",
+      cnpjCpf: "99988877766", // Adicionado (max 14 caracteres)
       email: "suporte@clienteoeste.com.br",
       phone: "41945678901",
       dataCadastro: new Date("2024-04-12"),
@@ -108,6 +115,8 @@ async function seedDids(clients: ProvidersClientEntity[]): Promise<DidsEntity[]>
 
     didsData.push({
       dids: numero,
+      canais: 2, // Adicionado (Quantidade fictícia de canais simultâneos)
+      data_ativacao: new Date(), // Adicionado (Data de ativação fictícia)
       providerClient: client,
     });
   }

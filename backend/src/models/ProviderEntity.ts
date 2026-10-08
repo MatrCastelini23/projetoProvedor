@@ -24,7 +24,7 @@ export class ProvidersEntity {
 
   @ManyToOne(() => PlanosEntity, (plano) => plano.providers, { onDelete: "SET NULL" })
   @JoinColumn({ name: "plan_id" })
-  plano!: Relation<PlanosEntity>
+  plano!: Relation<PlanosEntity> | null;
 
   @OneToMany(() => ProvidersClientEntity, (client) => client.provider)
   clients!: Relation<ProvidersClientEntity[]>;
