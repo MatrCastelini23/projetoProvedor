@@ -3,7 +3,7 @@ import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 import AppError from "../utils/AppError.js";
 
-const ACCESS_TOKEN_KEY = process.env.ACCESS_TOKEN_KEY;
+const ACCESS_TOKEN_KEY = process.env.JWT_SECRET;
 
 export interface IUserPayload {
   username: string;
