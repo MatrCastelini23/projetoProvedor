@@ -6,6 +6,7 @@ import { Header } from "../../components/layoout/Header";
 import { Footer } from "../../components/layoout/Footer";
 import { MessageNull } from "../../components/ui/Message/MessageNull";
 import { useNavigate } from "react-router-dom";
+import { CreatePlan } from "./CreatePlan";
 
 
 export const Planos = () => {
@@ -34,7 +35,7 @@ export const Planos = () => {
     }
   }
 
-  if (!plans || plans.length === 0) return <MessageNull message="Sem planos" />;
+  if (!plans || plans.length === 0) return <CreatePlan />;
 
   return (
     <div className="min-h-screen flex flex-col bg-white text-black">
