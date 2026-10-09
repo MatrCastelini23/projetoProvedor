@@ -5,6 +5,7 @@ import axios from "axios";
 import { LoginRediretion } from "../../../services/LoginRediretion";
 import { Header } from "../../../components/layoout/Header";
 import { Footer } from "../../../components/layoout/Footer";
+import { MessageNull } from "../../../components/ui/Message/MessageNull";
 
 export const ProviderDetails = () => {
   const { id } = useParams();
@@ -31,7 +32,7 @@ export const ProviderDetails = () => {
       );
     }
   }
-  if (!provider) return <div>Provedor não existe</div>
+  if (!provider) return <MessageNull message="Provedor não encontrado" />
 
   return (
     <div className="min-h-screen flex flex-col bg-white text-black">

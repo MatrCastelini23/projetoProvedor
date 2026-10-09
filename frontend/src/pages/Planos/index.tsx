@@ -4,6 +4,7 @@ import axios from "axios";
 import { LoginRediretion } from "../../services/LoginRediretion";
 import { Header } from "../../components/layoout/Header";
 import { Footer } from "../../components/layoout/Footer";
+import { MessageNull } from "../../components/ui/Message/MessageNull";
 //import { useMoneyInput } from "../../hooks/useMoneyInput";
 
 
@@ -37,10 +38,12 @@ export const Planos = () => {
 
 
   if (!plans) return (
-    <h1>Sem planos</h1>
+    <MessageNull
+      message="Sem planos"
+    />
   )
   return (
-    <>
+    <div className="min-h-screen flex flex-col bg-white text-black">
       <Header />
       <main className="w-full bg-white text-black p-16">
         <div className="flex gap-8 items-start justify-center flex-wrap">
@@ -73,6 +76,6 @@ export const Planos = () => {
         </div>
       </main>
       <Footer />
-    </>
+    </div>
   )
 }

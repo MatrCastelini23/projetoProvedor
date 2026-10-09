@@ -5,6 +5,7 @@ import { LoginRediretion } from "../../services/LoginRediretion";
 import Spinner from "../../components/ui/effects/Spinner";
 import { useFetchProviders } from "../../hooks/Provedores/Provetores"
 import { useNavigate } from "react-router-dom";
+import { MessageNull } from "../../components/ui/Message/MessageNull";
 
 export const Provedores = () => {
   const { providers, loading, error } = useFetchProviders();
@@ -30,7 +31,7 @@ export const Provedores = () => {
       );
     }
   }
-  if (!providers) return <div>Sem provedores</div>
+  if (!providers) return <MessageNull message="Sem provedores Cadastrados" />
 
   return (
     <div className="min-h-screen flex flex-col bg-white text-black">
