@@ -1,17 +1,24 @@
 import { useEffect, useState } from "react";
 import axios, { AxiosError } from "axios";
-import type { Plan } from "../../models/PlansEntity";
 
 const BASE_URL = import.meta.env.VITE_API_URL;
 
+interface IPlan {
+  id: number;
+  name: string;
+  description: string;
+  price: number;
+  totalDids: number;
+}
+
 interface IUseFetchPlans {
-  plans: Plan[] | null;
+  plans: IPlan[] | null;
   loading: boolean;
   error: unknown;
 }
 
 function useFetchPlans(): IUseFetchPlans {
-  const [plans, setPlan] = useState<Plan[] | null>(null);
+  const [plans, setPlan] = useState<IPlan[] | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<AxiosError | null>(null);
 

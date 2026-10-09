@@ -1,11 +1,11 @@
-import useFetchPlans from "../../api/Planos/Plans";
+import useFetchPlans from "../../hooks/Planos/Plans";
 import Spinner from "../../components/ui/effects/Spinner";
 import axios from "axios";
 import { LoginRediretion } from "../../services/LoginRediretion";
 import { useMoneyInput } from "../../hooks/useMoneyInput";
 
 
-function Planos() {
+export const Planos = () => {
   const { plans, loading, error } = useFetchPlans();
   const { value, onChange } = useMoneyInput();
 
@@ -126,5 +126,3 @@ function Planos() {
     </>
   )
 }
-
-export default Planos;

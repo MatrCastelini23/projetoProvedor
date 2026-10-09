@@ -3,7 +3,7 @@ import { Logar, type ILoginCredentials } from '../../api/Users/User';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-function Login() {
+export const Login = () => {
   const { register, handleSubmit, formState: { errors } } = useForm<ILoginCredentials>();
   const navigate = useNavigate();
 
@@ -76,5 +76,3 @@ function Login() {
     </>
   )
 }
-
-export default Login

@@ -1,30 +1,30 @@
-import { Link } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
-function Header() {
+const NAV_LINKS = [
+  { id: 0, path: "/", label: "Home" },
+  { id: 1, path: "/planos", label: "Planos" },
+  { id: 2, path: "/provedores", label: "Provedores" },
+  { id: 3, path: "/relatorios", label: "Relatorios" }
+]
 
+export const Header = () => {
+  const navigate = useNavigate();
   return (
     <header className="header">
-      <div className="max-w-6xl mx-auto flex items-center justify-between px-4 py-3">
-        <div>
-          <Link to={"/"}>
-            <span>
-              <img className="w-20" src="https://flue.net.br/logo-flue.png" alt="Logo Flue" />
-            </span>
-          </Link>
-        </div>
-        <div>
-          <nav className="flex items-center gap-6">
-            <Link
-              to={"/planos"}
-              className="font-medium hover:text-orange-400 transition-colors"
-            >
-              <span>Planos</span>
-            </Link>
-          </nav>
-        </div>
-      </div>
+      <nav>
+        <img src="" alt="" />
+        {NAV_LINKS.map((nav) => (
+          <ul key={nav.id}>
+            <li>
+              <button
+                onClick={() => navigate(nav.path)}
+              >
+                {nav.label}
+              </button>
+            </li>
+          </ul>
+        ))}
+      </nav>
     </header>
   )
 }
-
-export default Header;
