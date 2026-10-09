@@ -10,6 +10,11 @@ export class PlanosService {
     return plan;
   }
 
+  async getPlan(id: number) {
+    const plan = await this.repo.getPlan(id);
+    return plan;
+  }
+
   async getPlans(): Promise<PlanosEntity[]> {
     const plans = await this.repo.getPlans();
     return plans;

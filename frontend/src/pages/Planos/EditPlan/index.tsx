@@ -1,17 +1,18 @@
-import { useForm, Controller, type SubmitHandler } from "react-hook-form"
-import { useNavigate } from "react-router-dom"
-import axios from "axios"
 import { Header } from "../../../components/layoout/Header"
 import { Footer } from "../../../components/layoout/Footer"
+import { useNavigate, useParams } from "react-router-dom"
+import { useForm, Controller, type SubmitHandler } from "react-hook-form"
+import { alterPlan, type IPlan } from "../../../api/Planos/Plans"
 import { formatMoney } from "../../../utils/formatMoney"
-import { createPlan, type IPlan } from "../../../api/Planos/Plans"
+import axios from "axios"
 
 const inputClass = "border border-gray-300 rounded-lg px-3 py-2 text-black focus:outline-none focus:ring-2 focus:ring-amber-700"
 const labelClass = "text-sm font-medium text-black"
 const errorClass = "text-red-500 text-sm"
 
-export const CreatePlan = () => {
-  const navigate = useNavigate()
+export const EditPlan = () => {
+  const navigate = useNavigate();
+  const { id } = useParams();
   const {
     register,
     control,
@@ -23,35 +24,28 @@ export const CreatePlan = () => {
 
   const onSubmit: SubmitHandler<IPlan> = async (data) => {
     try {
-      await createPlan({
+      await alterPlan(Number(id), {
         ...data,
         price: Number(data.price.toFixed(2)),
       })
-      alert("Plano cadastrado")
-      navigate("/planos")
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {
         if (error.response.status === 403) {
-          alert("Sem permissão para cadastrar planos")
-          navigate("/login")
-        } else {
-          alert("Erro no servidor, tente novamente mais tarde")
+          alert("Erro de credencial")
           navigate("/login")
         }
       } else {
-        alert("Erro ao conectar com o servidor")
-        navigate("/login")
+        alert("Erro no servidor, else de fora")
       }
     }
   }
-
   return (
     <div className="min-h-screen flex flex-col bg-white text-black">
       <Header />
       <main className="flex-1 flex items-center justify-center px-4 py-10">
         <div className="max-w-md w-full bg-white rounded-2xl border-2 border-amber-700 shadow-md p-8">
           <h1 className="text-2xl font-bold text-black text-center mb-6">
-            Cadastrar plano novo
+            Alterar plano
           </h1>
 
           <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
@@ -122,9 +116,9 @@ export const CreatePlan = () => {
             </div>
 
             <div className="flex flex-col gap-1">
-              <label htmlFor="valorExcedente" className={labelClass}>Valor Excedente R$:</label>
+              <label htmlFor="valorExcedente" className={labelClass}>Valor Excendente R$:</label>
               <Controller
-                name="valorExcedente"
+                name="price"
                 control={control}
                 rules={{ min: { value: 0.01, message: "Informe um valor maior que zero" } }}
                 render={({ field }) => (
@@ -143,12 +137,13 @@ export const CreatePlan = () => {
               />
               {errors.valorExcedente && <span className={errorClass}>{errors.valorExcedente.message}</span>}
             </div>
+
             <button
               type="submit"
               disabled={isSubmitting}
               className="rounded-full text-xl text-white bg-blue-950 hover:bg-blue-900 disabled:opacity-60 p-2 mt-2 transition-colors border-2 border-amber-700"
             >
-              {isSubmitting ? "Cadastrando..." : "Cadastrar"}
+              {isSubmitting ? "Alterando..." : "Alterar"}
             </button>
           </form>
         </div>
@@ -156,4 +151,5 @@ export const CreatePlan = () => {
       <Footer />
     </div>
   )
+
 }

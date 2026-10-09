@@ -53,10 +53,21 @@ export class PlanosController {
     }
   }
 
+  listOnePlan = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const id = z.coerce.number().int().safeParse(req.params.id);
+      if (!id.success) throw new AppError(404, "Não encontrado");
+      const plan = await this.serv.getPlan(id.data);
+      res.status(200).json(plan);
+    } catch (error) {
+      next(error)
+    }
+  }
+
   editPlan = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const id = z.coerce.number().int().positive().safeParse(req.params.id);
-      if (!id.success) throw new AppError(400, "ID inválido");
+      if (!id.success) throw new AppError(404, "Não encontrado");
 
       const body = this.updatePlanSchema.safeParse(req.body);
       if (!body.success) throw new AppError(400, body.error.issues[0]?.message ?? "Erro no envio do body");

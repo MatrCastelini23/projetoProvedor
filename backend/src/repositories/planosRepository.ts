@@ -9,6 +9,7 @@ export type UpdatePlanData = {
 export interface IPlanosRepository {
   createPlan(data: Omit<PlanosEntity, "id" | "providers">): Promise<PlanosEntity>;
   getPlans(): Promise<PlanosEntity[]>;
+  getPlan(id: number): Promise<PlanosEntity | null>;
   updatePlan(id: number, data: UpdatePlanData): Promise<PlanosEntity | null>
 }
 
@@ -33,6 +34,11 @@ export class PlanosRepository implements IPlanosRepository {
       }
     })
     return data ?? undefined
+  }
+
+  async getPlan(id: number): Promise<PlanosEntity | null> {
+    const data = await this.repo.findOneBy({ id: Number(id) })
+    return data
   }
 
   async updatePlan(id: number, data: UpdatePlanData): Promise<PlanosEntity | null> {
