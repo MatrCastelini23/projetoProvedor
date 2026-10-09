@@ -1,5 +1,8 @@
 import { useParams } from "react-router-dom";
 import { useFetchProvider } from "../../../hooks/Provedores/Provetores"
+import Spinner from "../../../components/ui/effects/Spinner";
+import axios from "axios";
+import { LoginRediretion } from "../../../services/LoginRediretion";
 import { Header } from "../../../components/layoout/Header";
 import { Footer } from "../../../components/layoout/Footer";
 
@@ -8,8 +11,26 @@ export const ProviderDetails = () => {
   const idNumber = Number(id);
   const { provider, loading, error } = useFetchProvider(idNumber);
 
-  if (loading) return <div><h1>Carregando</h1></div>
-  if (error) return <div>Error</div>
+  if (loading) return (
+    <Spinner />
+  )
+  if (error) {
+    if (axios.isAxiosError(error)) {
+      if (error.response?.status === 403) {
+        return <LoginRediretion error={error} />;
+      }
+
+      const backendMessage = (error.response?.data as any)?.message;
+      const mensagemErro = backendMessage || error.message || "Erro ao carregar planos";
+
+      return (
+        <div style={{ color: "red", padding: "20px" }}>
+          <h1>Erro no carregamento</h1>
+          <p>{mensagemErro}</p>
+        </div>
+      );
+    }
+  }
   if (!provider) return <div>Provedor não existe</div>
 
   return (

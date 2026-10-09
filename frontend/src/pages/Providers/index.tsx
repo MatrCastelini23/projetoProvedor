@@ -1,5 +1,8 @@
 import { Header } from "../../components/layoout/Header"
 import { Footer } from "../../components/layoout/Footer"
+import axios from "axios";
+import { LoginRediretion } from "../../services/LoginRediretion";
+import Spinner from "../../components/ui/effects/Spinner";
 import { useFetchProviders } from "../../hooks/Provedores/Provetores"
 import { useNavigate } from "react-router-dom";
 
@@ -7,8 +10,26 @@ export const Provedores = () => {
   const { providers, loading, error } = useFetchProviders();
   const navigate = useNavigate();
 
-  if (loading) return <div>Carregando</div>
-  if (error) return <div>Error: {String(error)}</div>
+  if (loading) return (
+    <Spinner />
+  )
+  if (error) {
+    if (axios.isAxiosError(error)) {
+      if (error.response?.status === 403) {
+        return <LoginRediretion error={error} />;
+      }
+
+      const backendMessage = (error.response?.data as any)?.message;
+      const mensagemErro = backendMessage || error.message || "Erro ao carregar planos";
+
+      return (
+        <div style={{ color: "red", padding: "20px" }}>
+          <h1>Erro no carregamento</h1>
+          <p>{mensagemErro}</p>
+        </div>
+      );
+    }
+  }
   if (!providers) return <div>Sem provedores</div>
 
   return (

@@ -4,7 +4,7 @@ import axios from "axios";
 import { LoginRediretion } from "../../services/LoginRediretion";
 import { Header } from "../../components/layoout/Header";
 import { Footer } from "../../components/layoout/Footer";
-import { useMoneyInput } from "../../hooks/useMoneyInput";
+//import { useMoneyInput } from "../../hooks/useMoneyInput";
 
 
 export const Planos = () => {
