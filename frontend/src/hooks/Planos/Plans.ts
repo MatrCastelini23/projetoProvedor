@@ -9,6 +9,7 @@ interface IPlan {
   description: string;
   price: number;
   totalDids: number;
+  valorExcedente: number;
 }
 
 interface IUseFetchPlans {

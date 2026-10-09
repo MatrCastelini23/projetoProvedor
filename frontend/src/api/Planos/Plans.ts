@@ -6,7 +6,8 @@ export interface ICreatePlan {
   name: string,
   description: string,
   price: number,
-  totalDids: number
+  totalDids: number,
+  valorExcedente: number
 }
 
 

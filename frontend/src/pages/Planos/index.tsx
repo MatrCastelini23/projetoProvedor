@@ -49,6 +49,7 @@ export const Planos = () => {
                   <th className="p-3 border border-amber-700">Plano</th>
                   <th className="p-3 border border-amber-700">Preço</th>
                   <th className="p-3 border border-amber-700">Max. de DIDs</th>
+                  <th className="p-3 border border-amber-700">Valor Excendente a cobrar</th>
                 </tr>
               </thead>
               <tbody>
@@ -57,6 +58,7 @@ export const Planos = () => {
                     <td className="p-3 border border-amber-700">{plan.name}</td>
                     <td className="p-3 border border-amber-700">R$ {plan.price}</td>
                     <td className="p-3 border border-amber-700">{plan.totalDids}</td>
+                    <td className="p-3 border border-amber-700">{plan.valorExcedente}</td>
                   </tr>
                 ))}
               </tbody>
