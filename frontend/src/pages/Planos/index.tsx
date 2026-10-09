@@ -45,7 +45,7 @@ export const Planos = () => {
   return (
     <div className="min-h-screen flex flex-col bg-white text-black">
       <Header />
-      <main className="w-full bg-white text-black p-16">
+      <main className="flex-1 max-w-6xl w-full mx-auto px-4 py-10">
         <div className="flex gap-8 items-start justify-center flex-wrap">
           <div className="w-150 bg-white rounded-2xl border border-gray-200 shadow-md p-8">
             <h1 className="text-2xl font-bold text-center text-black mb-6">Planos criados</h1>
