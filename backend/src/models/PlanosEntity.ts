@@ -15,6 +15,9 @@ export class PlanosEntity {
   @Column({ type: "decimal", precision: 10, scale: 2, })
   price!: number;
 
+  @Column({ type: "decimal", precision: 10, scale: 2, nullable: true })
+  valorExcedente!: number;
+
   @Column({ type: "int" })
   totalDids!: number;
 
