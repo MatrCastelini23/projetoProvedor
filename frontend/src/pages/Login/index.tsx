@@ -1,5 +1,7 @@
 import { useForm, type SubmitHandler } from 'react-hook-form'
 import { Logar, type ILoginCredentials } from '../../api/Users/User';
+import { Header } from '../../components/layoout/Header';
+import { Footer } from '../../components/layoout/Footer';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
@@ -29,6 +31,7 @@ export const Login = () => {
 
   return (
     <>
+      <Header />
       <main className="flex-1 bg-gray-50 flex items-center justify-center px-4">
         <div className="container max-w-md w-full bg-white rounded-2xl shadow-md p-8">
           <h2 className="text-2xl font-bold text-blue-950 text-center mb-6">Login</h2>
@@ -73,6 +76,7 @@ export const Login = () => {
           </form>
         </div>
       </main>
+      <Footer />
     </>
   )
 }

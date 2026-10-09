@@ -10,20 +10,21 @@ const NAV_LINKS = [
 export const Header = () => {
   const navigate = useNavigate();
   return (
-    <header className="header">
-      <nav>
-        <img src="" alt="" />
-        {NAV_LINKS.map((nav) => (
-          <ul key={nav.id}>
-            <li>
+    <header className="bg-blue-950 text-white shadow-md">
+      <nav className="max-w-6xl mx-auto px-4 py-3 flex items-center gap-8">
+        <img src="/logoHeader.png" alt="Logo" className="h-10 w-auto" />
+        <ul className="flex items-center gap-2">
+          {NAV_LINKS.map((nav) => (
+            <li key={nav.id}>
               <button
                 onClick={() => navigate(nav.path)}
+                className="px-3 py-2 rounded-lg font-medium text-white hover:bg-white/10 hover:text-amber-400 transition-colors"
               >
                 {nav.label}
               </button>
             </li>
-          </ul>
-        ))}
+          ))}
+        </ul>
       </nav>
     </header>
   )
