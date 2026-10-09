@@ -41,7 +41,7 @@ export function useFetchProviders(): IUseFetchProviders {
     })
       .then(res => { setProviders(res.data); setLoading(false) })
       .catch((err: AxiosError) => { setError(err); setLoading(false) })
-  }, [providers])
+  }, [])
 
   return { providers, loading, error };
 }
@@ -61,7 +61,7 @@ export function useFetchProvider(id: number): IUseFetchProvider {
     })
       .then(res => { setProvider(res.data); setLoading(false) })
       .catch((err: AxiosError) => { setError(err); setLoading(false) })
-  }, [provider])
+  }, [])
 
   return { provider, loading, error };
 }
