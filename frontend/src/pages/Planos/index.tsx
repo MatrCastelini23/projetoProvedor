@@ -5,12 +5,12 @@ import { LoginRediretion } from "../../services/LoginRediretion";
 import { Header } from "../../components/layoout/Header";
 import { Footer } from "../../components/layoout/Footer";
 import { MessageNull } from "../../components/ui/Message/MessageNull";
-//import { useMoneyInput } from "../../hooks/useMoneyInput";
+import { useNavigate } from "react-router-dom";
 
 
 export const Planos = () => {
   const { plans, loading, error } = useFetchPlans();
-  //const { value, onChange } = useMoneyInput();
+  const navigate = useNavigate();
 
   if (loading) return (
     <Spinner />
@@ -33,15 +33,9 @@ export const Planos = () => {
       );
     }
   }
-  if (!plans || plans.length === 0) return <h1>Sem planos</h1>;
 
+  if (!plans || plans.length === 0) return <MessageNull message="Sem planos" />;
 
-
-  if (!plans) return (
-    <MessageNull
-      message="Sem planos"
-    />
-  )
   return (
     <div className="min-h-screen flex flex-col bg-white text-black">
       <Header />
@@ -67,11 +61,14 @@ export const Planos = () => {
                 ))}
               </tbody>
             </table>
-          </div>
-
-          <div className="w-150 bg-white rounded-2xl border border-gray-200 shadow-md p-8">
-            <h2 className="text-2xl font-bold text-black text-center mb-6">Cadastrar plano Novo</h2>
-            {/* no form: troque text-gray-700 por text-black nas <label> */}
+            <div className="flex justify-end mt-6">
+              <button
+                onClick={() => navigate("/cadastrarPlano")}
+                className="rounded-full text-lg text-white bg-blue-950 hover:bg-blue-900 px-6 py-2 transition-colors border-2 border-amber-700"
+              >
+                Cadastrar Plano
+              </button>
+            </div>
           </div>
         </div>
       </main>

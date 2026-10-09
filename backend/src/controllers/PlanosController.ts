@@ -7,10 +7,13 @@ export class PlanosController {
   constructor(private readonly serv: PlanosService) { };
 
   private schemaCreate = z.object({
-    name: z.string({ message: "Nome obrigatorio" }).length(100),
-    description: z.string({ message: "Descrição obrigatoria" }).length(100),
-    price: z.number({ message: "Use duas casais decimais" }).refine((val) => Number.isFinite(val) && Math.abs(val * 100 - Math.trunc(val * 100)) < Number.EPSILON, "Deve ter no máximo 2 casas decimais"),
-    totalDids: z.number({ message: "Use números inteiro" }).int(),
+    name: z.string({ message: "Nome obrigatório" }).min(1, { message: "Nome muito curto" }).max(100),
+    description: z.string({ message: "Descrição obrigatória" }).max(100),
+    price: z
+      .number({ message: "Preço inválido" })
+      .positive("O preço deve ser maior que zero")
+      .multipleOf(0.01, "Deve ter no máximo 2 casas decimais"),
+    totalDids: z.number({ message: "Use números inteiros" }).int(),
   })
 
   newPlan = async (req: Request, res: Response, next: NextFunction) => {

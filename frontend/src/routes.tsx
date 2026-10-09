@@ -5,6 +5,7 @@ import { Planos } from "./pages/Planos"
 import { Provedores } from "./pages/Providers"
 import { ProviderDetails } from "./pages/Providers/ProviderDetails"
 import { NoPage } from "./pages/NoPage"
+import { CreatePlan } from "./pages/Planos/CreatePlan"
 
 
 
@@ -32,6 +33,10 @@ export const Rotas = () => {
         <Route
           path="/provedor/:id"
           element={<ProviderDetails />}
+        />
+        <Route
+          path="/cadastrarPlano"
+          element={<CreatePlan />}
         />
         <Route
           path="*"
