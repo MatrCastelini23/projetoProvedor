@@ -5,6 +5,10 @@ import { useForm, Controller, type SubmitHandler } from "react-hook-form"
 import { alterPlan, type IPlan } from "../../../api/Planos/Plans"
 import { formatMoney } from "../../../utils/formatMoney"
 import axios from "axios"
+import { useFetchPlan } from "../../../hooks/Planos/Plans"
+import Spinner from "../../../components/ui/effects/Spinner"
+import { MessageNull } from "../../../components/ui/Message/MessageNull"
+import { useEffect } from "react"
 
 const inputClass = "border border-gray-300 rounded-lg px-3 py-2 text-black focus:outline-none focus:ring-2 focus:ring-amber-700"
 const labelClass = "text-sm font-medium text-black"
@@ -13,21 +17,49 @@ const errorClass = "text-red-500 text-sm"
 export const EditPlan = () => {
   const navigate = useNavigate();
   const { id } = useParams();
+  const { plan, loading, error } = useFetchPlan(Number(id));
+
   const {
     register,
     control,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    reset,
+    formState: { errors, isSubmitting, dirtyFields },
   } = useForm<IPlan>({
     defaultValues: { name: "", description: "", price: 0, totalDids: 0, valorExcedente: 0 },
   })
 
+  useEffect(() => {
+    if (plan) {
+      reset({
+        ...plan,
+        price: Number(plan.price),
+        valorExcedente: Number(plan.valorExcedente),
+        totalDids: Number(plan.totalDids),
+      })
+    }
+  }, [plan, reset])
   const onSubmit: SubmitHandler<IPlan> = async (data) => {
+
+    const changed = Object.fromEntries(
+      Object.keys(dirtyFields).map((key) => [key, data[key as keyof IPlan]])
+    ) as Partial<IPlan>
+
+    if (changed.price !== undefined)
+      changed.price = Number(Number(changed.price).toFixed(2))
+
+    if (changed.valorExcedente !== undefined)
+      changed.valorExcedente = Number(Number(changed.valorExcedente).toFixed(2))
+    if (Object.keys(changed).length === 0) {
+      alert("Nenhuma alteração para salvar")
+      return
+    }
     try {
       await alterPlan(Number(id), {
         ...data,
         price: Number(data.price.toFixed(2)),
-      })
+      });
+      navigate("/planos");
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {
         if (error.response.status === 403) {
@@ -35,10 +67,17 @@ export const EditPlan = () => {
           navigate("/login")
         }
       } else {
-        alert("Erro no servidor, else de fora")
+        alert(`Erro no servidor`)
       }
     }
   }
+
+  if (loading) return <Spinner />
+
+  if (error) return <MessageNull message="Erro ao encontrar plano" />
+
+  if (!plan) return <MessageNull message="Plano não encontrado" />
+
   return (
     <div className="min-h-screen flex flex-col bg-white text-black">
       <Header />
@@ -118,7 +157,7 @@ export const EditPlan = () => {
             <div className="flex flex-col gap-1">
               <label htmlFor="valorExcedente" className={labelClass}>Valor Excendente R$:</label>
               <Controller
-                name="price"
+                name="valorExcedente"
                 control={control}
                 rules={{ min: { value: 0.01, message: "Informe um valor maior que zero" } }}
                 render={({ field }) => (

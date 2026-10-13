@@ -1,4 +1,4 @@
-import useFetchPlans from "../../hooks/Planos/Plans";
+import { useFetchPlans } from "../../hooks/Planos/Plans";
 import Spinner from "../../components/ui/effects/Spinner";
 import axios from "axios";
 import { LoginRediretion } from "../../services/LoginRediretion";
@@ -63,6 +63,7 @@ export const Planos = () => {
                     <td className="p-3 border border-amber-700">
                       <button
                         onClick={() => navigate(`/plano/${plan.id}`)}
+                        className="rounded-full text-lg text-white bg-blue-950 hover:bg-blue-900 px-6 py-2 transition-colors border-2 border-amber-700"
                       >
                         Editar
                       </button>
