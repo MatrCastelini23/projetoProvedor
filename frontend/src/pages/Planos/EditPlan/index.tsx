@@ -26,7 +26,7 @@ export const EditPlan = () => {
     reset,
     formState: { errors, isSubmitting, dirtyFields },
   } = useForm<IPlan>({
-    defaultValues: { name: "", description: "", price: 0, totalDids: 0, valorExcedente: 0 },
+    defaultValues: { name: "", description: "", price: 0, totalDids: 0, valorExcedente: 0, valorPorCanal: 0 },
   })
 
   useEffect(() => {
@@ -35,6 +35,7 @@ export const EditPlan = () => {
         ...plan,
         price: Number(plan.price),
         valorExcedente: Number(plan.valorExcedente),
+        valorPorCanal: Number(plan.valorPorCanal),
         totalDids: Number(plan.totalDids),
       })
     }
@@ -50,6 +51,10 @@ export const EditPlan = () => {
 
     if (changed.valorExcedente !== undefined)
       changed.valorExcedente = Number(Number(changed.valorExcedente).toFixed(2))
+
+    if (changed.valorPorCanal !== undefined)
+      changed.valorPorCanal = Number(Number(changed.valorPorCanal).toFixed(2))
+
     if (Object.keys(changed).length === 0) {
       alert("Nenhuma alteração para salvar")
       return
@@ -58,6 +63,8 @@ export const EditPlan = () => {
       await alterPlan(Number(id), {
         ...data,
         price: Number(data.price.toFixed(2)),
+        valorExcedente: Number(data.valorExcedente.toFixed(2)),
+        valorPorCanal: Number(data.valorPorCanal.toFixed(2)),
       });
       navigate("/planos");
     } catch (error) {
@@ -175,6 +182,29 @@ export const EditPlan = () => {
                 )}
               />
               {errors.valorExcedente && <span className={errorClass}>{errors.valorExcedente.message}</span>}
+            </div>
+
+            <div className="flex flex-col gap-1">
+              <label htmlFor="valorPorCanal" className={labelClass}>Valor Por Canal R$:</label>
+              <Controller
+                name="valorPorCanal"
+                control={control}
+                rules={{ min: { value: 0.01, message: "Informe um valor maior que zero" } }}
+                render={({ field }) => (
+                  <input
+                    type="text"
+                    inputMode="numeric"
+                    id="valorPorCanal"
+                    value={formatMoney({ value: field.value, fractionDigits: 2 })}
+                    onChange={(e) =>
+                      field.onChange(Number(e.target.value.replace(/\D/g, "")) / 100)
+                    }
+                    onBlur={field.onBlur}
+                    className={inputClass}
+                  />
+                )}
+              />
+              {errors.valorPorCanal && <span className={errorClass}>{errors.valorPorCanal.message}</span>}
             </div>
 
             <button

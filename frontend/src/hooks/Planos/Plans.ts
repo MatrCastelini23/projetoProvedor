@@ -7,9 +7,10 @@ interface IPlan {
   id: number;
   name: string;
   description: string;
-  price: string;
-  valorExcedente: string | null;
+  price: number;
   totalDids: number;
+  valorExcedente: number;
+  valorPorCanal: number;
 }
 
 interface IUseFetchPlans {
@@ -61,5 +62,5 @@ export function useFetchPlan(id: number): IUseFetchPlan {
       .catch((err: AxiosError) => { setError(err); setLoading(false) })
   }, [])
 
-  return { plan, loading, error };
+  return { plan, loading, error }
 }

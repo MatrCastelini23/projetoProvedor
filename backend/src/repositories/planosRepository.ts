@@ -2,7 +2,7 @@ import { Repository } from "typeorm";
 import PlanosEntity from "../models/PlanosEntity.js";
 
 export type UpdatePlanData = {
-  [K in "name" | "description" | "price" | "totalDids" | "valorExcedente"]?:
+  [K in "name" | "description" | "price" | "totalDids" | "valorExcedente" | "valorPorCanal"]?:
   PlanosEntity[K] | undefined;
 };
 
@@ -31,6 +31,7 @@ export class PlanosRepository implements IPlanosRepository {
         price: true,
         totalDids: true,
         valorExcedente: true,
+        valorPorCanal: true
       }
     })
     return data ?? undefined

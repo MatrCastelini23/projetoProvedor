@@ -18,7 +18,7 @@ export const CreatePlan = () => {
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<IPlan>({
-    defaultValues: { name: "", description: "", price: 0, totalDids: 0, valorExcedente: 0 },
+    defaultValues: { name: "", description: "", price: 0, totalDids: 0, valorExcedente: 0, valorPorCanal: 0 },
   })
 
   const onSubmit: SubmitHandler<IPlan> = async (data) => {
@@ -26,6 +26,8 @@ export const CreatePlan = () => {
       await createPlan({
         ...data,
         price: Number(data.price.toFixed(2)),
+        valorExcedente: Number(data.price.toFixed(2)),
+        valorPorCanal: Number(data.valorPorCanal.toFixed(2))
       })
       alert("Plano cadastrado")
       navigate("/planos")
@@ -142,6 +144,28 @@ export const CreatePlan = () => {
                 )}
               />
               {errors.valorExcedente && <span className={errorClass}>{errors.valorExcedente.message}</span>}
+            </div>
+            <div className="flex flex-col gap-1">
+              <label htmlFor="valorPorCanal" className={labelClass}>Valor Por Canal R$:</label>
+              <Controller
+                name="valorPorCanal"
+                control={control}
+                rules={{ min: { value: 0.01, message: "Informe um valor maior que zero" } }}
+                render={({ field }) => (
+                  <input
+                    type="text"
+                    inputMode="numeric"
+                    id="valorPorCanal"
+                    value={formatMoney({ value: field.value, fractionDigits: 2 })}
+                    onChange={(e) =>
+                      field.onChange(Number(e.target.value.replace(/\D/g, "")) / 100)
+                    }
+                    onBlur={field.onBlur}
+                    className={inputClass}
+                  />
+                )}
+              />
+              {errors.valorPorCanal && <span className={errorClass}>{errors.valorPorCanal.message}</span>}
             </div>
             <button
               type="submit"

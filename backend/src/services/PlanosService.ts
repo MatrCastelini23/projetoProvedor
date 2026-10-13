@@ -5,7 +5,7 @@ import AppError from "../utils/AppError.ts";
 export class PlanosService {
   constructor(private readonly repo: IPlanosRepository) { };
 
-  async createPlan(data: { name: string; description: string; price: number; totalDids: number, valorExcedente: number }) {
+  async createPlan(data: { name: string; description: string; price: number; totalDids: number, valorExcedente: number; valorPorCanal: number }) {
     const plan = await this.repo.createPlan(data)
     return plan;
   }

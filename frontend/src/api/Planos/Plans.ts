@@ -3,13 +3,14 @@ import axios from "axios";
 const BASE_URL = import.meta.env.VITE_API_URL;
 
 export interface IPlan {
-  name: string,
-  description: string,
-  price: number,
-  totalDids: number,
-  valorExcedente: number
+  id: number;
+  name: string;
+  description: string;
+  price: number;
+  valorExcedente: number;
+  totalDids: number;
+  valorPorCanal: number;
 }
-
 
 export const createPlan = async (plan: IPlan) => {
   const token = localStorage.getItem("token");

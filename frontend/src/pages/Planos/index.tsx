@@ -41,7 +41,7 @@ export const Planos = () => {
       <Header />
       <main className="flex-1 max-w-6xl w-full mx-auto px-4 py-10">
         <div className="flex gap-8 items-start justify-center flex-wrap">
-          <div className="w-150 bg-white rounded-2xl border border-gray-200 shadow-md p-8">
+          <div className="w-200 bg-white rounded-2xl border border-gray-200 shadow-md p-8">
             <h1 className="text-2xl font-bold text-center text-black mb-6">Planos criados</h1>
             <table className="w-full text-left border-collapse border-2 border-amber-700">
               <thead className="bg-blue-950 text-white font-bold uppercase text-xs">
@@ -50,6 +50,7 @@ export const Planos = () => {
                   <th className="p-3 border border-amber-700">Preço</th>
                   <th className="p-3 border border-amber-700">Max. de DIDs</th>
                   <th className="p-3 border border-amber-700">Valor Excendente a cobrar</th>
+                  <th className="p-3 border border-amber-700">Valor a cobrar por Canal</th>
                   <th className="p-3 border border-amber-700">Editar</th>
                 </tr>
               </thead>
@@ -59,11 +60,12 @@ export const Planos = () => {
                     <td className="p-3 border border-amber-700">{plan.name}</td>
                     <td className="p-3 border border-amber-700">R$ {plan.price}</td>
                     <td className="p-3 border border-amber-700">{plan.totalDids}</td>
-                    <td className="p-3 border border-amber-700">{plan.valorExcedente}</td>
-                    <td className="p-3 border border-amber-700">
+                    <td className="p-3 border border-amber-700">R$ {plan.valorExcedente}</td>
+                    <td className="p-3 border border-amber-700">R$ {plan.valorPorCanal}</td>
+                    <td className="p-2 border border-amber-700">
                       <button
                         onClick={() => navigate(`/plano/${plan.id}`)}
-                        className="rounded-full text-lg text-white bg-blue-950 hover:bg-blue-900 px-6 py-2 transition-colors border-2 border-amber-700"
+                        className="rounded-full text-white bg-blue-950 hover:bg-blue-900 px-6 py-2 transition-colors border-2 border-amber-700"
                       >
                         Editar
                       </button>

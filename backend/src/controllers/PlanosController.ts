@@ -15,6 +15,7 @@ export class PlanosController {
       .multipleOf(0.01, "Deve ter no máximo 2 casas decimais"),
     totalDids: z.number({ message: "Use números inteiros" }).int(),
     valorExcedente: z.number().nonnegative(),
+    valorPorCanal: z.number().nonnegative(),
   })
 
   private updatePlanSchema = z
@@ -24,6 +25,7 @@ export class PlanosController {
       price: z.number().nonnegative(),
       totalDids: z.number().int().nonnegative(),
       valorExcedente: z.number().nonnegative(),
+      valorPorCanal: z.number().nonnegative(),
     })
     .partial()
     .refine((d) => Object.keys(d).length > 0, {
