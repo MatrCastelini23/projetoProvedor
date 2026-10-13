@@ -1,16 +1,20 @@
 import axios, { AxiosError } from "axios";
 import { useEffect, useState } from "react";
+import type { IPlan } from "../../api/Planos/Plans";
+import type { IProvidesClients } from "../ClientsProvider/Clients";
 
 const BASE_URL = import.meta.env.VITE_API_URL;
 
 interface IProvider {
   id: number;
   razaosocial: string;
+  cnpj: string;
   email: string;
   phone: string;
-  dataCadastro: Date;
-  plan_id: number;
-  cnpj: string;
+  dataCadastro: string;
+  plano: IPlan;
+  clients: IProvidesClients[];
+  didsEmUso: number;
 }
 
 interface IUseFetchProviders {

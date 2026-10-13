@@ -6,11 +6,22 @@ import { LoginRediretion } from "../../../services/LoginRediretion";
 import { Header } from "../../../components/layoout/Header";
 import { Footer } from "../../../components/layoout/Footer";
 import { MessageNull } from "../../../components/ui/Message/MessageNull";
+import { dateFomart } from "../../../utils/dateFormat";
+import { totaisDoClienteFinal } from "../../../utils/DidsCanais";
 
 export const ProviderDetails = () => {
   const { id } = useParams();
   const idNumber = Number(id);
   const { provider, loading, error } = useFetchProvider(idNumber);
+  const totalProvedor = provider?.clients.reduce(
+    (acc, c) => {
+      const t = totaisDoClienteFinal(c.dids);
+      return {
+        dids: acc.dids + t.totalDids,
+        canais: acc.canais + t.totalCanais,
+      };
+    }, { dids: 0, canais: 0 },
+  );
 
   if (loading) return (
     <Spinner />
@@ -39,9 +50,124 @@ export const ProviderDetails = () => {
       <Header />
       <main className="flex-1 max-w-6xl w-full mx-auto px-4 py-10">
         <h1 className="text-2xl font-bold text-black mb-6">Detalhes do provedor</h1>
-        <div className="rounded-2xl border-2 border-amber-700 p-6 text-black">
-          {provider.razaosocial}
+
+        {/* Dados cadastrais + Plano lado a lado */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+          {/* Dados cadastrais */}
+          <section className="rounded-2xl border-2 border-amber-700 p-6">
+            <h2 className="text-lg font-bold text-blue-950 mb-4 pb-2 border-b-2 border-amber-700">
+              Dados Cadastrais
+            </h2>
+            <dl className="space-y-3 text-sm">
+              <div>
+                <dt className="text-xs uppercase text-gray-500">Razão social</dt>
+                <dd className="font-semibold">{provider.razaosocial}</dd>
+              </div>
+              <div>
+                <dt className="text-xs uppercase text-gray-500">CNPJ</dt>
+                <dd>{provider.cnpj}</dd>
+              </div>
+              <div>
+                <dt className="text-xs uppercase text-gray-500">Telefone</dt>
+                <dd>{provider.phone}</dd>
+              </div>
+              <div>
+                <dt className="text-xs uppercase text-gray-500">E-mail</dt>
+                <dd>{provider.email}</dd>
+              </div>
+              <div>
+                <dt className="text-xs uppercase text-gray-500">Data de cadastro</dt>
+                <dd>{dateFomart(provider.dataCadastro)}</dd>
+              </div>
+            </dl>
+
+            <div className="grid grid-cols-2 gap-3 mt-5">
+              <div className="rounded-xl bg-blue-950 text-white p-3 text-center">
+                <p className="text-2xl font-bold">{totalProvedor?.dids ?? 0}</p>
+                <p className="text-xs uppercase">Total de DIDs</p>
+              </div>
+              <div className="rounded-xl bg-blue-950 text-white p-3 text-center">
+                <p className="text-2xl font-bold">{totalProvedor?.canais ?? 0}</p>
+                <p className="text-xs uppercase">Total de Canais</p>
+              </div>
+            </div>
+          </section>
+
+          {/* Plano cadastrado */}
+          <section className="rounded-2xl border-2 border-amber-700 p-6">
+            <h2 className="text-lg font-bold text-blue-950 mb-4 pb-2 border-b-2 border-amber-700">
+              Plano Cadastrado
+            </h2>
+            <dl className="space-y-3 text-sm">
+              <div>
+                <dt className="text-xs uppercase text-gray-500">Plano</dt>
+                <dd className="font-semibold">{provider.plano.name}</dd>
+              </div>
+              <div>
+                <dt className="text-xs uppercase text-gray-500">Descrição</dt>
+                <dd>{provider.plano.description}</dd>
+              </div>
+              <div>
+                <dt className="text-xs uppercase text-gray-500">DIDs incluídos</dt>
+                <dd>{provider.plano.totalDids}</dd>
+              </div>
+              <div>
+                <dt className="text-xs uppercase text-gray-500">Valor mensal</dt>
+                <dd className="font-semibold">R$ {provider.plano.price}</dd>
+              </div>
+              <div>
+                <dt className="text-xs uppercase text-gray-500">Valor excedente</dt>
+                <dd>
+                  {provider.plano.valorExcedente
+                    ? `R$ ${provider.plano.valorExcedente}`
+                    : "—"}
+                </dd>
+              </div>
+            </dl>
+          </section>
         </div>
+
+        {/* Clientes e DIDs */}
+        <section>
+          <h2 className="text-xl font-bold text-black mb-4">Clientes e DIDs</h2>
+          <div className="overflow-x-auto">
+            <table className="w-full text-left border-collapse border-2 border-amber-700">
+              <thead className="bg-blue-950 text-white uppercase text-xs">
+                <tr>
+                  <th className="p-3 border border-amber-700">Nome do cliente</th>
+                  <th className="p-3 border border-amber-700">CPF ou CNPJ</th>
+                  <th className="p-3 border border-amber-700">Telefone</th>
+                  <th className="p-3 border border-amber-700">Data de cadastro</th>
+                  <th className="p-3 border border-amber-700 text-center">DIDs</th>
+                  <th className="p-3 border border-amber-700 text-center">Total de canais</th>
+                </tr>
+              </thead>
+              <tbody>
+                {provider.clients.length === 0 ? (
+                  <tr>
+                    <td colSpan={6} className="p-4 text-center text-gray-500">
+                      Este provedor ainda não possui clientes.
+                    </td>
+                  </tr>
+                ) : (
+                  provider.clients.map((c) => {
+                    const { totalDids, totalCanais } = totaisDoClienteFinal(c.dids);
+                    return (
+                      <tr key={c.id} className="hover:bg-amber-50">
+                        <td className="p-3 border border-amber-700">{c.razaosocial}</td>
+                        <td className="p-3 border border-amber-700">{c.cnpjCpf}</td>
+                        <td className="p-3 border border-amber-700">{c.phone}</td>
+                        <td className="p-3 border border-amber-700">{dateFomart(c.dataCadastro)}</td>
+                        <td className="p-3 border border-amber-700 text-center">{totalDids}</td>
+                        <td className="p-3 border border-amber-700 text-center">{totalCanais}</td>
+                      </tr>
+                    );
+                  })
+                )}
+              </tbody>
+            </table>
+          </div>
+        </section>
       </main>
       <Footer />
     </div>

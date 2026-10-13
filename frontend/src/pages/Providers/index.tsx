@@ -10,7 +10,7 @@ import { MessageNull } from "../../components/ui/Message/MessageNull";
 export const Provedores = () => {
   const { providers, loading, error } = useFetchProviders();
   const navigate = useNavigate();
-
+  console.log(providers)
   if (loading) return (
     <Spinner />
   )
@@ -45,7 +45,7 @@ export const Provedores = () => {
               <tr>
                 <th className="p-3 border border-amber-700">Provedor</th>
                 <th className="p-3 border border-amber-700">Plano</th>
-                <th className="p-3 border border-amber-700">Número de clientes</th>
+                <th className="p-3 border border-amber-700">Dids em Uso vs Limite</th>
                 <th className="p-3 border border-amber-700">Ir para o perfil</th>
               </tr>
             </thead>
@@ -53,8 +53,8 @@ export const Provedores = () => {
               {providers.map((p) => (
                 <tr key={p.id} className="hover:bg-amber-50">
                   <td className="p-3 border border-amber-700">{p.razaosocial}</td>
-                  <td className="p-3 border border-amber-700">{p.plan_id}</td>
-                  <td className="p-3 border border-amber-700">Clientes</td>
+                  <td className="p-3 border border-amber-700">{p.plano?.name}</td>
+                  <td className="p-3 border border-amber-700">{p.didsEmUso} vs {p.plano.totalDids}</td>
                   <td className="p-3 border border-amber-700">
                     <button
                       onClick={() => navigate(`/provedor/${p.id}`)}

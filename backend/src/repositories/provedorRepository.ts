@@ -29,17 +29,33 @@ export class ProviderRepository implements IProviderRepository {
         razaosocial: true,
         cnpj: true,
         phone: true,
-        plano: true,
       },
-      relations: { clients: true }
+      relations: { clients: true, plano: true }
     });
-    return data;
+    const counts = await this.repo
+      .createQueryBuilder('p')
+      .leftJoin('p.clients', 'c')
+      .leftJoin('c.dids', 'd')
+      .select('p.id', 'providerId')
+      .addSelect('COUNT(d.id)', 'total')
+      .groupBy('p.id')
+      .getRawMany<{ providerId: number; total: string }>();
+
+    const countMap = new Map(counts.map((r) => [r.providerId, Number(r.total)]))
+    return data.map((p) => ({
+      ...p,
+      didsEmUso: countMap.get(p.id) ?? 0,
+    }));
   }
 
   async getProviderDetails(id: number): Promise<ProvidersEntity | null> {
     const data = await this.repo.findOne({
       where: { id },
-      relations: { clients: true }
+      relations: {
+        clients: {
+          dids: true,
+        }, plano: true
+      }
     });
     return data ?? null;
   }

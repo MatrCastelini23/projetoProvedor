@@ -7,9 +7,9 @@ interface IPlan {
   id: number;
   name: string;
   description: string;
-  price: number;
+  price: string;
+  valorExcedente: string | null;
   totalDids: number;
-  valorExcedente: number;
 }
 
 interface IUseFetchPlans {
