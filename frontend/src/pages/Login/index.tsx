@@ -30,7 +30,7 @@ export const Login = () => {
   };
 
   return (
-    <>
+    <div className="min-h-screen flex flex-col bg-white text-black">
       <Header />
       <main className="flex-1 bg-gray-50 flex items-center justify-center px-4">
         <div className="container max-w-md w-full bg-white rounded-2xl shadow-md p-8">
@@ -77,6 +77,6 @@ export const Login = () => {
         </div>
       </main>
       <Footer />
-    </>
+    </div>
   )
 }
