@@ -51,9 +51,7 @@ export const ProviderDetails = () => {
       <main className="flex-1 max-w-6xl w-full mx-auto px-4 py-10">
         <h1 className="text-2xl font-bold text-black mb-6">Detalhes do provedor</h1>
 
-        {/* Dados cadastrais + Plano lado a lado */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
-          {/* Dados cadastrais */}
           <section className="rounded-2xl border-2 border-amber-700 p-6">
             <h2 className="text-lg font-bold text-blue-950 mb-4 pb-2 border-b-2 border-amber-700">
               Dados Cadastrais
@@ -93,7 +91,6 @@ export const ProviderDetails = () => {
             </div>
           </section>
 
-          {/* Plano cadastrado */}
           <section className="rounded-2xl border-2 border-amber-700 p-6">
             <h2 className="text-lg font-bold text-blue-950 mb-4 pb-2 border-b-2 border-amber-700">
               Plano Cadastrado
@@ -102,10 +99,6 @@ export const ProviderDetails = () => {
               <div>
                 <dt className="text-xs uppercase text-gray-500">Plano</dt>
                 <dd className="font-semibold">{provider.plano.name}</dd>
-              </div>
-              <div>
-                <dt className="text-xs uppercase text-gray-500">Descrição</dt>
-                <dd>{provider.plano.description}</dd>
               </div>
               <div>
                 <dt className="text-xs uppercase text-gray-500">DIDs incluídos</dt>
@@ -123,7 +116,25 @@ export const ProviderDetails = () => {
                     : "—"}
                 </dd>
               </div>
+              <div>
+                <dt className="text-xs uppercase text-gray-500">Valor por Canal</dt>
+                <dd>
+                  {provider.plano.valorPorCanal
+                    ? `R$ ${provider.plano.valorPorCanal}`
+                    : "—"}
+                </dd>
+              </div>
             </dl>
+            <div className="grid grid-cols-2 gap-3 mt-5">
+              <div className="rounded-xl bg-blue-950 text-white p-3 text-center">
+                <p className="text-2xl font-bold">Colocar Valor</p>
+                <p className="text-xs uppercase">Total de excedentes</p>
+              </div>
+              <div className="rounded-xl bg-blue-950 text-white p-3 text-center">
+                <p className="text-2xl font-bold">Colocar Valor</p>
+                <p className="text-xs uppercase">Total a Cobrar</p>
+              </div>
+            </div>
           </section>
         </div>
 
