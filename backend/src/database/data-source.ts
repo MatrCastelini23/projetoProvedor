@@ -22,7 +22,7 @@ const AppDataSource = new DataSource({
   database: databaseName!,
   entities: [path.join(baseDir, `../models/*.${ext}`)],
   synchronize: false,
-  logging: true,
+  logging: ["query", "error"],
   migrations: [path.join(baseDir, `migrations/*.${ext}`)],
   migrationsRun: true,
 })

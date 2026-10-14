@@ -53,8 +53,15 @@ export const Provedores = () => {
               {providers.map((p) => (
                 <tr key={p.id} className="hover:bg-amber-50">
                   <td className="p-3 border border-amber-700">{p.razaosocial}</td>
-                  <td className="p-3 border border-amber-700">{p.plano?.name}</td>
-                  <td className="p-3 border border-amber-700">{p.didsEmUso} vs {p.plano.totalDids}</td>
+                  <td className="p-3 border border-amber-700">
+                    {p.plano?.name ?? <span className="text-gray-500 italic"> Sem plano</span>}
+                  </td>
+                  <td className="p-3 border border-amber-700">
+                    {p.plano
+                      ? `${p.didsEmUso} vs ${p.plano.totalDids ?? 0}`
+                      : `${p.didsEmUso} vs -`
+                    }
+                  </td>
                   <td className="p-3 border border-amber-700">
                     <button
                       onClick={() => navigate(`/provedor/${p.id}`)}

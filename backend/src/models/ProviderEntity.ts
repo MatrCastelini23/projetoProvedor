@@ -22,6 +22,9 @@ export class ProvidersEntity {
   @Column({ type: "date" })
   dataCadastro!: Date
 
+  @Column({ name: "plan_id", type: "int", nullable: true })
+  planoId!: number | null;
+
   @ManyToOne(() => PlanosEntity, (plano) => plano.providers, { onDelete: "SET NULL" })
   @JoinColumn({ name: "plan_id" })
   plano!: Relation<PlanosEntity> | null;

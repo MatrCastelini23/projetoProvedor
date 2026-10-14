@@ -2,7 +2,6 @@ import { Request, Response, NextFunction } from "express";
 import { ProvidersService } from "../services/ProviderService.ts";
 import z, { number } from "zod";
 import AppError from "../utils/AppError.ts";
-import { id } from "zod/locales";
 
 
 export class ProviderController {
@@ -12,9 +11,8 @@ export class ProviderController {
     razaosocial: z.string({ message: "Razao social obrigatório" }).max(100),
     email: z.email().max(100),
     phone: z.string().max(11),
-    dataCadastro: z.date(),
-    planoId: z.number().int().positive().nullable().optional(),
-    cnpj: z.string().length(100),
+    planoId: z.number().int().positive(),
+    cnpj: z.string().max(14),
   })
 
   newProvider = async (req: Request, res: Response, next: NextFunction) => {

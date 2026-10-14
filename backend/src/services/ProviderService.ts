@@ -5,9 +5,12 @@ import { IProviderRepository } from "../repositories/provedorRepository.js";
 export class ProvidersService {
   constructor(private readonly repo: IProviderRepository) { };
 
-  async createProvider(data: Omit<ProvidersEntity, "id" | "clients" | "plano">) {
-    const provider = await this.repo.createProvider(data)
-    return provider;
+  async createProvider(data: Omit<ProvidersEntity, "id" | "clients" | "plano" | "dataCadastro">) {
+    const provider = {
+      ...data,
+      dataCadastro: new Date(),
+    }
+    return await this.repo.createProvider(provider);
   }
 
   async getProviders(): Promise<ProvidersEntity[]> {

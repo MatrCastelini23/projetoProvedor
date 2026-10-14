@@ -98,29 +98,29 @@ export const ProviderDetails = () => {
             <dl className="space-y-3 text-sm">
               <div>
                 <dt className="text-xs uppercase text-gray-500">Plano</dt>
-                <dd className="font-semibold">{provider.plano.name}</dd>
+                <dd className="font-semibold">{provider.plano?.name ?? <span className="text-gray-500 italic">Sem plano Cadastrado</span>}</dd>
               </div>
               <div>
                 <dt className="text-xs uppercase text-gray-500">DIDs incluídos</dt>
-                <dd>{provider.plano.totalDids}</dd>
+                <dd>{provider.plano?.totalDids}</dd>
               </div>
               <div>
                 <dt className="text-xs uppercase text-gray-500">Valor mensal</dt>
-                <dd className="font-semibold">R$ {provider.plano.price}</dd>
+                <dd className="font-semibold">R$ {provider.plano?.price}</dd>
               </div>
               <div>
                 <dt className="text-xs uppercase text-gray-500">Valor excedente</dt>
                 <dd>
-                  {provider.plano.valorExcedente
-                    ? `R$ ${provider.plano.valorExcedente}`
+                  {provider.plano?.valorExcedente
+                    ? `R$ ${provider.plano?.valorExcedente}`
                     : "—"}
                 </dd>
               </div>
               <div>
                 <dt className="text-xs uppercase text-gray-500">Valor por Canal</dt>
                 <dd>
-                  {provider.plano.valorPorCanal
-                    ? `R$ ${provider.plano.valorPorCanal}`
+                  {provider.plano?.valorPorCanal
+                    ? `R$ ${provider.plano?.valorPorCanal}`
                     : "—"}
                 </dd>
               </div>
