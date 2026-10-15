@@ -4,6 +4,7 @@ import AppDataSource from "../database/data-source.ts";
 import ProvidersClientEntity from "../models/ProviderClientEntity.ts";
 import { ProviderClientService } from "../services/ProviderClientService.ts";
 import { ProviderClientController } from "../controllers/ProviderClientController.ts";
+import { AuthMiddleware } from "../middlewares/AuthMiddleware.ts";
 
 const providerClientRoute = Router();
 
@@ -11,7 +12,7 @@ const providerClientRepository = new ProviderClientRepository(AppDataSource.getR
 const providerClientService = new ProviderClientService(providerClientRepository);
 const providerClientController = new ProviderClientController(providerClientService);
 
-providerClientRoute.post("/createClient", providerClientController.newProviderClient);
+providerClientRoute.post("/createClient", AuthMiddleware, providerClientController.newProviderClient);
 
 
 export default providerClientRoute;
