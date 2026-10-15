@@ -22,6 +22,9 @@ export class ProvidersClientEntity {
   @Column({ type: "date" })
   dataCadastro!: Date
 
+  @Column({ name: "provider_id", type: "int" })
+  providerId!: number;
+
   @OneToMany(() => DidsEntity, (dids) => dids.providerClient)
   dids!: DidsEntity[];
 

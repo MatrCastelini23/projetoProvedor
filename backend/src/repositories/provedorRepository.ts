@@ -13,7 +13,6 @@ export class ProviderRepository implements IProviderRepository {
 
   async createProvider(data: Omit<ProvidersEntity, "id" | "clients" | "plano" | "dataCadastro"> & { planoId?: number | null }): Promise<ProvidersEntity> {
     const input = this.repo.create(data);
-    console.log("entity montada:", input)
     return await this.repo.save(input);
   }
 

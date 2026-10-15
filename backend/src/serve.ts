@@ -8,6 +8,7 @@ import { errorMiddleware } from "./middlewares/ErrorMiddleware.js";
 import planRoute from "./routes/planosRoute.js";
 import healthRoute from "./routes/healthRoute.ts";
 import providerRoute from "./routes/provedorRoute.ts";
+import providerClientRoute from "./routes/providerClientRoute.ts";
 
 
 const server = express();
@@ -18,6 +19,7 @@ server.use(express.json());
 server.use(userRoute);
 server.use(planRoute);
 server.use(providerRoute);
+server.use(providerClientRoute);
 server.use(healthRoute);
 
 server.use(errorMiddleware);
