@@ -25,7 +25,6 @@ export const CreateProvider = () => {
 
   const onSubmit: SubmitHandler<IProvider> = async (data) => {
     try {
-      console.log("enviando:", data, typeof data.planoId)
       await createProvider(data)
       alert("Provedor cadastrado")
       navigate("/provedores")

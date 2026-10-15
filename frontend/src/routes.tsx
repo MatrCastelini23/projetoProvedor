@@ -8,6 +8,7 @@ import { NoPage } from "./pages/NoPage"
 import { CreatePlan } from "./pages/Planos/CreatePlan"
 import { EditPlan } from "./pages/Planos/EditPlan"
 import { CreateProvider } from "./pages/Providers/CreateProvider"
+import { ProviderClients } from "./pages/Providers/ProviderClients"
 
 
 
@@ -39,6 +40,10 @@ export const Rotas = () => {
         <Route
           path="/newProvider"
           element={<CreateProvider />}
+        />
+        <Route
+          path="/provedor/:id/novocliente"
+          element={<ProviderClients />}
         />
         <Route
           path="/cadastrarPlano"

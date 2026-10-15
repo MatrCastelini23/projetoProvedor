@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useFetchProvider } from "../../../hooks/Provedores/Provetores"
 import Spinner from "../../../components/ui/effects/Spinner";
 import axios from "axios";
@@ -10,6 +10,7 @@ import { dateFomart } from "../../../utils/dateFormat";
 import { totaisDoClienteFinal } from "../../../utils/DidsCanais";
 
 export const ProviderDetails = () => {
+  const navigate = useNavigate();
   const { id } = useParams();
   const idNumber = Number(id);
   const { provider, loading, error } = useFetchProvider(idNumber);
@@ -140,7 +141,15 @@ export const ProviderDetails = () => {
 
         {/* Clientes e DIDs */}
         <section>
-          <h2 className="text-xl font-bold text-black mb-4">Clientes e DIDs</h2>
+          <div className="mb-2">
+            <h2 className="text-xl font-bold text-black mb-4">Clientes e DIDs</h2>
+            <button
+              onClick={() => navigate(`/provedor/${id}/novocliente`)}
+              className="rounded-full text-white bg-blue-950 hover:bg-blue-900 disabled:opacity-60 p-2 mt-2 transition-colors border-2 border-amber-700"
+            >
+              Cadastrar novo Cliente
+            </button>
+          </div>
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse border-2 border-amber-700">
               <thead className="bg-blue-950 text-white uppercase text-xs">
