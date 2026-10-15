@@ -16,6 +16,9 @@ export class DidsEntity {
   @Column({ type: "date" })
   data_ativacao!: Date;
 
+  @Column({ name: "providersClient_id", type: "int" })
+  providersClientId!: number;
+
   @ManyToOne(() => ProvidersClientEntity, (client) => client.dids, { onDelete: "CASCADE" })
   @JoinColumn({ name: "providersClient_id" })
   providerClient!: Relation<ProvidersClientEntity>;
