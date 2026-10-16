@@ -17,6 +17,7 @@ interface IProvider {
   didsEmUso: number;
   valorACobrar: number;
   valorExcedente: number;
+  canaisAdicionais: number;
 }
 
 interface IUseFetchProviders {

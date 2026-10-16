@@ -46,7 +46,7 @@ export const ProviderDetails = () => {
     }
   }
   if (!provider) return <MessageNull message="Provedor não encontrado" />
-
+  { console.log(provider.valorACobrar) }
   return (
     <div className="min-h-screen flex flex-col bg-white text-black">
       <Header />
@@ -56,7 +56,7 @@ export const ProviderDetails = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
           <section className="rounded-2xl border-2 border-amber-700 p-6">
             <h2 className="text-lg font-bold text-blue-950 mb-4 pb-2 border-b-2 border-amber-700">
-              Dados Cadastrais
+              Dados Cadastrais {provider.valorACobrar}
             </h2>
             <dl className="space-y-3 text-sm">
               <div>
@@ -87,8 +87,8 @@ export const ProviderDetails = () => {
                 <p className="text-xs uppercase">Total de DIDs</p>
               </div>
               <div className="rounded-xl bg-blue-950 text-white p-3 text-center">
-                <p className="text-2xl font-bold">{totalProvedor?.canais ?? 0}</p>
-                <p className="text-xs uppercase">Total de Canais</p>
+                <p className="text-2xl font-bold">{provider.canaisAdicionais ?? 0}</p>
+                <p className="text-xs uppercase">Canais adicionais</p>
               </div>
             </div>
           </section>
@@ -133,8 +133,9 @@ export const ProviderDetails = () => {
                 <p className="text-xs uppercase">Total de excedentes</p>
               </div>
               <div className="rounded-xl bg-blue-950 text-white p-3 text-center">
-                <p className="text-2xl font-bold">{provider.valorACobrar <= provider.plano.price ? formatMoney({ value: provider.plano.price, fractionDigits: 2 }) :
-                  formatMoney({ value: provider.valorACobrar, fractionDigits: 2 })
+                <p className="text-2xl font-bold">{provider.valorACobrar <= provider.plano.price
+                  ? formatMoney({ value: provider.plano.price, fractionDigits: 2 })
+                  : formatMoney({ value: provider.valorACobrar, fractionDigits: 2 })
                 }</p>
                 <p className="text-xs uppercase">Total a Cobrar</p>
               </div>

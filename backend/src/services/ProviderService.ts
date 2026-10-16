@@ -18,7 +18,7 @@ export class ProvidersService {
     return providers;
   }
 
-  async getProviderDetails(id: number): Promise<ProvidersEntity & { valorACobrar: number; valorExcedente: number } | null> {
+  async getProviderDetails(id: number): Promise<ProvidersEntity & { valorACobrar: number; valorExcedente: number; canaisAdicionais: number } | null> {
     const idNumber = id;
     const provider = await this.repo.getProviderDetails(idNumber);
 
@@ -33,10 +33,11 @@ export class ProvidersService {
     const dids = (provider.clients ?? []).flatMap((client) => client.dids ?? []);
     const totalDidsNaBase = dids.length;
 
-    let valorACobrar = 0;
+    let valorCobrar = 0;
+    let canaisCobrados = 0;
 
     if (totalDidsNaBase > plano.totalDids) {
-      valorACobrar = totalDidsNaBase * plano.valorExcedente;
+      valorCobrar = totalDidsNaBase * plano.valorExcedente;
     }
 
     const totalCanaisCobrados = dids
@@ -44,16 +45,21 @@ export class ProvidersService {
       .reduce((soma, did) => soma + did.canais, 0)
 
     if (totalCanaisCobrados > 0) {
-      valorACobrar = totalCanaisCobrados * plano.valorPorCanal + valorACobrar;
+      canaisCobrados = totalCanaisCobrados * plano.valorPorCanal;
     }
 
-    const valorExcedente = valorACobrar - plano.price;
+    if (valorCobrar < plano.price) {
+      valorCobrar = canaisCobrados + Number(plano.price);
+    }
+
+    const valorExcedente = valorCobrar - plano.price;
 
     const valorRedondo = (value: number) => Math.round((value + Number.EPSILON) * 100) / 100;
     return {
       ...provider,
-      valorACobrar: valorRedondo(valorACobrar),
-      valorExcedente: valorRedondo(valorExcedente)
+      valorACobrar: valorRedondo(valorCobrar),
+      valorExcedente: valorRedondo(valorExcedente),
+      canaisAdicionais: totalCanaisCobrados,
     };
   }
 }
