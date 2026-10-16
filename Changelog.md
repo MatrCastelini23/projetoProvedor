@@ -1,5 +1,16 @@
 
 ## Changelog
+- **fix** (2026-10-16 · d514106): adição de duas condicionais para tratar o valor a cobrar
+
+  <details>
+  <summary>Arquivos alterados</summary>
+
+  ```
+  backend/src/services/ProviderService.ts | 7 ++++++-
+   1 file changed, 6 insertions(+), 1 deletion(-)
+  ```
+
+  </details>
 - **fix** (2026-10-16 · 6fe85a6): novo ajuste na regra de valores a serem cobrados, valor do plano só prevalecerá sobre o valor a ser cobrado se o provedor não estourar o valor de DIDs na base e não contratar canais adicionais
 
   <details>
