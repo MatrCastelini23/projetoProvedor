@@ -133,7 +133,7 @@ export const ProviderDetails = () => {
                 <p className="text-xs uppercase">Total de excedentes</p>
               </div>
               <div className="rounded-xl bg-blue-950 text-white p-3 text-center">
-                <p className="text-2xl font-bold">{provider.valorACobrar <= provider.plano.price ? formatMoney({ value: provider.plano.price }) :
+                <p className="text-2xl font-bold">{provider.valorACobrar <= provider.plano.price ? formatMoney({ value: provider.plano.price, fractionDigits: 2 }) :
                   formatMoney({ value: provider.valorACobrar, fractionDigits: 2 })
                 }</p>
                 <p className="text-xs uppercase">Total a Cobrar</p>
