@@ -18,9 +18,40 @@ export class ProvidersService {
     return providers;
   }
 
-  async getProviderDetails(id: number): Promise<ProvidersEntity | null> {
+  async getProviderDetails(id: number): Promise<ProvidersEntity & { valorACobrar: number; valorExcedente: number } | null> {
     const idNumber = id;
     const provider = await this.repo.getProviderDetails(idNumber);
-    return provider ?? null;
+
+    if (!provider) return null;
+
+    const { plano } = provider;
+
+    if (!plano) {
+      throw new Error(`Provedor não possui plano vinculado`);
+    }
+
+    const dids = (provider.clients ?? []).flatMap((client) => client.dids ?? []);
+    const totalDidsNaBase = dids.length;
+
+    let valorACobrar = 0;
+
+    if (totalDidsNaBase > plano.totalDids) {
+      valorACobrar = totalDidsNaBase * plano.valorExcedente;
+    }
+
+    const totalCanais = dids.reduce((soma, did) => soma + did.canais, 0);
+
+    if (totalCanais > 5) {
+      valorACobrar = totalCanais * plano.valorPorCanal + valorACobrar;
+    }
+
+    const valorExcedente = valorACobrar - plano.price;
+
+    const valorRedondo = (value: number) => Math.round((value + Number.EPSILON) * 100) / 100;
+    return {
+      ...provider,
+      valorACobrar: valorRedondo(valorACobrar),
+      valorExcedente: valorRedondo(valorExcedente)
+    };
   }
 }

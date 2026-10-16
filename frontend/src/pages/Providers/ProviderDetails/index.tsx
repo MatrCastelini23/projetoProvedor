@@ -8,6 +8,7 @@ import { Footer } from "../../../components/layoout/Footer";
 import { MessageNull } from "../../../components/ui/Message/MessageNull";
 import { dateFomart } from "../../../utils/dateFormat";
 import { totaisDoClienteFinal } from "../../../utils/DidsCanais";
+import { formatMoney } from "../../../utils/formatMoney";
 
 export const ProviderDetails = () => {
   const navigate = useNavigate();
@@ -106,14 +107,14 @@ export const ProviderDetails = () => {
                 <dd>{provider.plano?.totalDids}</dd>
               </div>
               <div>
-                <dt className="text-xs uppercase text-gray-500">Valor mensal</dt>
-                <dd className="font-semibold">R$ {provider.plano?.price}</dd>
+                <dt className="text-xs uppercase text-gray-500">Valor do Pacote</dt>
+                <dd className="font-semibold">{formatMoney({ value: provider.plano.price, fractionDigits: 2 })}</dd>
               </div>
               <div>
                 <dt className="text-xs uppercase text-gray-500">Valor excedente</dt>
                 <dd>
                   {provider.plano?.valorExcedente
-                    ? `R$ ${provider.plano?.valorExcedente}`
+                    ? formatMoney({ value: provider.plano.valorExcedente, fractionDigits: 2 })
                     : "—"}
                 </dd>
               </div>
@@ -121,18 +122,18 @@ export const ProviderDetails = () => {
                 <dt className="text-xs uppercase text-gray-500">Valor por Canal</dt>
                 <dd>
                   {provider.plano?.valorPorCanal
-                    ? `R$ ${provider.plano?.valorPorCanal}`
+                    ? formatMoney({ value: provider.plano.valorPorCanal, fractionDigits: 2 })
                     : "—"}
                 </dd>
               </div>
             </dl>
             <div className="grid grid-cols-2 gap-3 mt-5">
               <div className="rounded-xl bg-blue-950 text-white p-3 text-center">
-                <p className="text-2xl font-bold">Colocar Valor</p>
+                <p className="text-2xl font-bold">{formatMoney({ value: provider.valorExcedente, fractionDigits: 2 })}</p>
                 <p className="text-xs uppercase">Total de excedentes</p>
               </div>
               <div className="rounded-xl bg-blue-950 text-white p-3 text-center">
-                <p className="text-2xl font-bold">Colocar Valor</p>
+                <p className="text-2xl font-bold">{formatMoney({ value: provider.valorACobrar, fractionDigits: 2 })}</p>
                 <p className="text-xs uppercase">Total a Cobrar</p>
               </div>
             </div>

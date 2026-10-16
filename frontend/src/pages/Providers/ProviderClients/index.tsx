@@ -52,7 +52,6 @@ export const ProviderClients = () => {
       }
     }
   }
-  console.log(useParams(), idNumber);
   return (
     <div className="min-h-screen flex flex-col bg-white text-black">
       <Header />

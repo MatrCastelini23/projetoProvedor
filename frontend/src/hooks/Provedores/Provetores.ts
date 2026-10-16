@@ -15,6 +15,8 @@ interface IProvider {
   plano: IPlan;
   clients: IProvidesClients[];
   didsEmUso: number;
+  valorACobrar: number;
+  valorExcedente: number;
 }
 
 interface IUseFetchProviders {
