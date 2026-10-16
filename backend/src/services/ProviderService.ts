@@ -39,10 +39,12 @@ export class ProvidersService {
       valorACobrar = totalDidsNaBase * plano.valorExcedente;
     }
 
-    const totalCanais = dids.reduce((soma, did) => soma + did.canais, 0);
+    const totalCanaisCobrados = dids
+      .filter((did) => did.canais >= 5)
+      .reduce((soma, did) => soma + did.canais, 0)
 
-    if (totalCanais > 5) {
-      valorACobrar = totalCanais * plano.valorPorCanal + valorACobrar;
+    if (totalCanaisCobrados > 0) {
+      valorACobrar = totalCanaisCobrados * plano.valorPorCanal + valorACobrar;
     }
 
     const valorExcedente = valorACobrar - plano.price;
