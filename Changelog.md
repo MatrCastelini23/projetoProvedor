@@ -1,5 +1,16 @@
 
 ## Changelog
+- **fix** (2026-10-16 · 9491e8f): valor a cobra corrido para mostrar valor exato
+
+  <details>
+  <summary>Arquivos alterados</summary>
+
+  ```
+  frontend/src/pages/Providers/ProviderDetails/index.tsx | 2 +-
+   1 file changed, 1 insertion(+), 1 deletion(-)
+  ```
+
+  </details>
 - **fix** (2026-10-16 · cb04897): valores a serem cobrados e excedentes tratados no frontend
 
   <details>
