@@ -1,5 +1,16 @@
 
 ## Changelog
+- **fix** (2026-10-16 · cb04897): valores a serem cobrados e excedentes tratados no frontend
+
+  <details>
+  <summary>Arquivos alterados</summary>
+
+  ```
+  frontend/src/pages/Providers/ProviderDetails/index.tsx | 6 ++++--
+   1 file changed, 4 insertions(+), 2 deletions(-)
+  ```
+
+  </details>
 - **feature** (2026-10-16 · 9dc8eb7): alguns detalhes do sistema descritos no README.md
 
   <details>
