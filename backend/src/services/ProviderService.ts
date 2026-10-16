@@ -48,8 +48,13 @@ export class ProvidersService {
       canaisCobrados = totalCanaisCobrados * plano.valorPorCanal;
     }
 
-    valorCobrar = canaisCobrados + Number(plano.price) + valorCobrar;
+    if (valorCobrar < plano.price) {
+      valorCobrar = canaisCobrados + Number(plano.price);
+    }
 
+    if (valorCobrar > plano.price) {
+      valorCobrar = canaisCobrados + valorCobrar;
+    }
     const valorExcedente = valorCobrar - plano.price;
 
     const valorRedondo = (value: number) => Math.round((value + Number.EPSILON) * 100) / 100;
