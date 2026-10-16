@@ -48,9 +48,7 @@ export class ProvidersService {
       canaisCobrados = totalCanaisCobrados * plano.valorPorCanal;
     }
 
-    if (valorCobrar < plano.price) {
-      valorCobrar = canaisCobrados + Number(plano.price);
-    }
+    valorCobrar = canaisCobrados + Number(plano.price) + valorCobrar;
 
     const valorExcedente = valorCobrar - plano.price;
 

@@ -46,7 +46,7 @@ export const ProviderDetails = () => {
     }
   }
   if (!provider) return <MessageNull message="Provedor não encontrado" />
-  { console.log(provider.valorACobrar) }
+
   return (
     <div className="min-h-screen flex flex-col bg-white text-black">
       <Header />
@@ -56,7 +56,7 @@ export const ProviderDetails = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
           <section className="rounded-2xl border-2 border-amber-700 p-6">
             <h2 className="text-lg font-bold text-blue-950 mb-4 pb-2 border-b-2 border-amber-700">
-              Dados Cadastrais {provider.valorACobrar}
+              Dados Cadastrais
             </h2>
             <dl className="space-y-3 text-sm">
               <div>
