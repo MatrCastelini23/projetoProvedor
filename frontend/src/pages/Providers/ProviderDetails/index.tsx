@@ -129,11 +129,13 @@ export const ProviderDetails = () => {
             </dl>
             <div className="grid grid-cols-2 gap-3 mt-5">
               <div className="rounded-xl bg-blue-950 text-white p-3 text-center">
-                <p className="text-2xl font-bold">{formatMoney({ value: provider.valorExcedente, fractionDigits: 2 })}</p>
+                <p className="text-2xl font-bold">{provider.valorExcedente < 0 ? 0 : formatMoney({ value: provider.valorExcedente, fractionDigits: 2 })}</p>
                 <p className="text-xs uppercase">Total de excedentes</p>
               </div>
               <div className="rounded-xl bg-blue-950 text-white p-3 text-center">
-                <p className="text-2xl font-bold">{formatMoney({ value: provider.valorACobrar, fractionDigits: 2 })}</p>
+                <p className="text-2xl font-bold">{provider.valorACobrar <= provider.plano.price ? formatMoney({ value: provider.plano.price }) :
+                  formatMoney({ value: provider.valorACobrar, fractionDigits: 2 })
+                }</p>
                 <p className="text-xs uppercase">Total a Cobrar</p>
               </div>
             </div>
