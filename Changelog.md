@@ -1,5 +1,18 @@
 
 ## Changelog
+- **fix** (2026-10-16 · 6fe85a6): novo ajuste na regra de valores a serem cobrados, valor do plano só prevalecerá sobre o valor a ser cobrado se o provedor não estourar o valor de DIDs na base e não contratar canais adicionais
+
+  <details>
+  <summary>Arquivos alterados</summary>
+
+  ```
+  backend/src/services/ProviderService.ts              | 20 +++++++++++++-------
+   frontend/src/hooks/Provedores/Provetores.ts          |  1 +
+   .../src/pages/Providers/ProviderDetails/index.tsx    | 13 +++++++------
+   3 files changed, 21 insertions(+), 13 deletions(-)
+  ```
+
+  </details>
 - **fix** (2026-10-16 · 9491e8f): valor a cobra corrido para mostrar valor exato
 
   <details>
