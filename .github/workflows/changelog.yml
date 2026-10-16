@@ -1,0 +1,110 @@
+# Este workflow só aceitará commits no formato tipo: descrição
+name: changelog
+
+on:
+  push:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-actions[bot]'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Histórico completo
+          fetch-depth: 0
+
+      # Define o tipo do changelog
+      - name: Changelog Type
+        id: type
+        run: |
+          MSG="$(git log -1 --pretty=%s)"
+          FIRST_WORD="${MSG%% *}"
+
+          if [[ "$FIRST_WORD" != *: ]]; then
+            echo "Mensagem fora do padrão 'tipo: descrição', sendo ignorado."
+            echo "valid=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          echo "valid=true" >> "$GITHUB_OUTPUT"
+          echo "type=${FIRST_WORD%:}" >> "$GITHUB_OUTPUT"
+      # Define o conteudo do changelog    
+      - name: Changelog Content
+        id: content
+        if: steps.type.outputs.valid == 'true'
+        run: |
+          MSG="$(git log -1 --pretty=%s)"
+          echo "content=${MSG#* }" >> "$GITHUB_OUTPUT"
+
+      - name: Update Changelog
+        if: steps.type.outputs.valid == 'true'
+        env:
+          CL_TYPE: ${{ steps.type.outputs.type }}
+          CL_CONTENT: ${{ steps.content.outputs.content }}
+        run: |
+          # Corpo do commit (tudo depois da linha de assunto)
+          git log -1 --pretty=%b > /tmp/commit_body.txt
+          # Arquivos alterados no commit
+          git show --stat --pretty=format: HEAD > /tmp/commit_stat.txt
+
+          python3 - <<'EOF'
+          import os, datetime
+
+          entry = "- **{}** ({} · {}): {}".format(
+              os.environ["CL_TYPE"],
+              datetime.date.today().isoformat(),
+              os.environ["GITHUB_SHA"][:7],
+              os.environ["CL_CONTENT"],
+          )
+
+          # Detalhes do git log, indentados para ficarem dentro do item da lista
+          details = []
+
+          with open("/tmp/commit_body.txt", encoding="utf-8") as f:
+              body = f.read().strip()
+          if body:
+              details += ["  " + l if l.strip() else "" for l in body.split("\n")]
+
+          with open("/tmp/commit_stat.txt", encoding="utf-8") as f:
+              stat = f.read().strip()
+          if stat:
+              details += ["", "  <details>", "  <summary>Arquivos alterados</summary>", "", "  ```"]
+              details += ["  " + l for l in stat.split("\n")]
+              details += ["  ```", "", "  </details>"]
+
+          block = [entry] + details
+
+          path = "Changelog.md"
+          if os.path.exists(path):
+              with open(path, encoding="utf-8") as f:
+                  lines = f.read().split("\n")
+          else:
+              lines = []
+
+          for i, line in enumerate(lines):
+              if line.strip().lower() == "## changelog":
+                  lines[i + 1:i + 1] = block
+                  break
+          else:
+              if lines and lines[-1] != "":
+                  lines.append("")
+              lines += ["## Changelog", ""] + block + [""]
+
+          with open(path, "w", encoding="utf-8") as f:
+              f.write("\n".join(lines))
+          EOF
+
+      - name: Commit Changelog
+        if: steps.type.outputs.valid == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add Changelog.md
+          git diff --cached --quiet && exit 0
+          git commit -m "docs: atualiza changelog [skip ci]"
+          git push
