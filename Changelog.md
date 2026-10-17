@@ -1,5 +1,26 @@
 
 ## Changelog
+- **feature** (2026-10-17 · 1f76a2c): Versionamento de API aplicado as rotas já existentes #8
+
+  <details>
+  <summary>Arquivos alterados</summary>
+
+  ```
+  backend/src/routes/healthRoute.ts                 | 2 +-
+   backend/src/routes/planosRoute.ts                 | 8 ++++----
+   backend/src/routes/provedorRoute.ts               | 6 +++---
+   backend/src/routes/providerClientRoute.ts         | 2 +-
+   backend/src/routes/userRoute.ts                   | 4 ++--
+   frontend/src/api/Planos/Plans.ts                  | 4 ++--
+   frontend/src/api/Provedores/Provedores.ts         | 2 +-
+   frontend/src/api/ProviderClient/ProviderClient.ts | 2 +-
+   frontend/src/api/Users/User.ts                    | 2 +-
+   frontend/src/hooks/Planos/Plans.ts                | 4 ++--
+   frontend/src/hooks/Provedores/Provetores.ts       | 4 ++--
+   11 files changed, 20 insertions(+), 20 deletions(-)
+  ```
+
+  </details>
 - **fix** (2026-10-16 · d514106): adição de duas condicionais para tratar o valor a cobrar
 
   <details>
