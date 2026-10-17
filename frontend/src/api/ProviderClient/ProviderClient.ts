@@ -14,7 +14,7 @@ export interface IProviderClient {
 
 export const createClient = async (providerClient: IProviderClient) => {
   const token = localStorage.getItem("token");
-  const response = await axios.post(`${BASE_URL}/createClient`, providerClient, {
+  const response = await axios.post(`${BASE_URL}/v1/client`, providerClient, {
     headers: { Authorization: `Bearer ${token}` }
   })
 

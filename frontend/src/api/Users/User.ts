@@ -12,6 +12,6 @@ export interface ILoginResponse {
 }
 
 export async function Logar(data: ILoginCredentials) {
-  const response = await axios.post<ILoginResponse>(`${BASE_URL}/login`, data);
+  const response = await axios.post<ILoginResponse>(`${BASE_URL}/v0/login`, data);
   return response.data;
 }

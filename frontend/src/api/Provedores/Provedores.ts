@@ -14,7 +14,7 @@ export interface IProvider {
 
 export const createProvider = async (provider: IProvider) => {
   const token = localStorage.getItem("token");
-  const response = await axios.post(`${BASE_URL}/createProvider`, provider, {
+  const response = await axios.post(`${BASE_URL}/v1/provider`, provider, {
     headers: { Authorization: `Bearer ${token}` }
   })
   return response.data;

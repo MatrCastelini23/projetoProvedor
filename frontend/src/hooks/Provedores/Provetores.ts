@@ -40,7 +40,7 @@ export function useFetchProviders(): IUseFetchProviders {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-    axios.get(`${BASE_URL}/providers`, {
+    axios.get(`${BASE_URL}/v1/provider`, {
       headers: {
         'Content-Type': 'application/json',
         'authorization': `Bearer ${token}`
@@ -60,7 +60,7 @@ export function useFetchProvider(id: number): IUseFetchProvider {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-    axios.get(`${BASE_URL}/provider/${id}`, {
+    axios.get(`${BASE_URL}/v1/provider/${id}`, {
       headers: {
         'Content-Type': 'application/json',
         'authorization': `Bearer ${token}`

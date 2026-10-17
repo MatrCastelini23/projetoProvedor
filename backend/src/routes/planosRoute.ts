@@ -14,9 +14,9 @@ const planService = new PlanosService(planRepository);
 const planController = new PlanosController(planService);
 
 
-planRoute.post("/createPlan", AuthMiddleware, planController.newPlan);
-planRoute.get("/getPlans", AuthMiddleware, planController.listAllPlans);
-planRoute.get("/getPlan/:id", AuthMiddleware, planController.listOnePlan);
-planRoute.patch("/alterPlan/:id", AuthMiddleware, planController.editPlan);
+planRoute.post("/v1/plan", AuthMiddleware, planController.newPlan);
+planRoute.get("/v1/plan", AuthMiddleware, planController.listAllPlans);
+planRoute.get("/v1/plan/:id", AuthMiddleware, planController.listOnePlan);
+planRoute.patch("/v1/plan/:id", AuthMiddleware, planController.editPlan);
 
 export default planRoute;

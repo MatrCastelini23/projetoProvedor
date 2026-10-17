@@ -14,8 +14,8 @@ const providerRepository = new ProviderRepository(AppDataSource.getRepository(Pr
 const providerService = new ProvidersService(providerRepository);
 const providerController = new ProviderController(providerService);
 
-providerRoute.get("/providers", AuthMiddleware, providerController.listAllProviders);
-providerRoute.get("/provider/:id", AuthMiddleware, providerController.getOneProvider);
-providerRoute.post("/createProvider", AuthMiddleware, providerController.newProvider);
+providerRoute.get("/v1/provider", AuthMiddleware, providerController.listAllProviders);
+providerRoute.get("/v1/provider/:id", AuthMiddleware, providerController.getOneProvider);
+providerRoute.post("/v1/provider", AuthMiddleware, providerController.newProvider);
 
 export default providerRoute; 

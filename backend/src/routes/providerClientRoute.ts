@@ -12,7 +12,7 @@ const providerClientRepository = new ProviderClientRepository(AppDataSource.getR
 const providerClientService = new ProviderClientService(providerClientRepository);
 const providerClientController = new ProviderClientController(providerClientService);
 
-providerClientRoute.post("/createClient", AuthMiddleware, providerClientController.newProviderClient);
+providerClientRoute.post("/v1/client", AuthMiddleware, providerClientController.newProviderClient);
 
 
 export default providerClientRoute;

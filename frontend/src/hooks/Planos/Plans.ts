@@ -32,7 +32,7 @@ export function useFetchPlans(): IUseFetchPlans {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-    axios.get(`${BASE_URL}/getPlans`, {
+    axios.get(`${BASE_URL}/v1/plan`, {
       headers: {
         'Content-Type': 'application/json',
         'authorization': `Bearer ${token}`
@@ -52,7 +52,7 @@ export function useFetchPlan(id: number): IUseFetchPlan {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-    axios.get(`${BASE_URL}/getPlan/${id}`, {
+    axios.get(`${BASE_URL}/v1/plan/${id}`, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
